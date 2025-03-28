@@ -293,11 +293,20 @@ Este directorio ofrece una colección integral de 400 ejercicios resueltos en Py
       - Operaciones avanzadas con tuplas, conjuntos y diccionarios.
       - Gestión de datos estructurados como inventarios y registros.
 
-   5. **Recursividad**  
-      [Ejercicios destacados:](#)
-   - Resolución de problemas clásicos como Torres de Hanói.
-   - Generación de subconjuntos y combinaciones.
-   - Recorridos en árboles y grafos.
+### [Recursividad](08.Recursividad/)
+   - [Ejercicio 148](02.Recursividad/148.ejercicio.py)
+     - **Suma de Números:** Escribe una función recursiva que calcule la suma de los primeros n números naturales.
+   - [Ejercicio 149](02.Recursividad/149.ejercicio.py)
+      - **Factorial:** Implementa una función recursiva para calcular el factorial de un número.
+   - [Ejercicio 150](02.Recursividad/150.ejercicio.py)
+      - **Potencia:** Crea una función recursiva que calcule la potencia de un número dado. 
+   - [Ejercicio 151](02.Recursividad/151.ejercicio.py)
+      - **Fibonacci:** Desarrolla una función recursiva para calcular el término n de la secuencia de Fibonacci.
+   - [Ejercicio 152](02.Recursividad/151.ejercicio.py)
+      - **Cuenta Regresiva:** Escribe una función recursiva que muestre una cuenta regresiva desde un número n hasta 1.
+   - [Ejercicio 151](02.Recursividad/151.ejercicio.py)
+
+
 
 6. **Programación Orientada a Objetos**  
    [Ejercicios destacados:](#)
