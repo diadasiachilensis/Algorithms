@@ -3,7 +3,7 @@ def merge_lists(nums1, m, nums2, n):
     #n-1 y m-1 ubicacion del segundo apuntador en cada lista 
     p1=m-1
     p2=n-1
-    while 0<=p1 and 0<=p2:
+    while 0 <= p1 and 0 <= p2:
         #nums2 nos sirve
         if nums1[p1]<nums2[p2]:
             nums1[p1]=nums2[p2]
@@ -13,9 +13,10 @@ def merge_lists(nums1, m, nums2, n):
             nums1[p]=nums1[p1]
             p1 -= 1
             p -= 1
-    
+    # Complejidad T=O(n+m)=O(n)
+    # Complejidad espacial S=O(1) es constante
     if n != m:
-        nums1[ : p2+1] = nums2[ : p2+1]
+        nums1[ : p2 + 1] = nums2[ : p2 + 1]
     
     return nums1
 
