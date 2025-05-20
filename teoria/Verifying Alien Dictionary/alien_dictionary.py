@@ -31,7 +31,7 @@ def alien_sorted(words, order):
 
 
 # ---- Ejemplo de uso ----
-palabras = ["hola", "holaa", "holb"]
-orden = "hlabcdefgijkmnopqrstuvwxyz"
+#palabras = ["hola", "holaa", "holb"]
+#orden = "hlabcdefgijkmnopqrstuvwxyz"
 
-print("¿Listado ordenado?", alien_sorted(palabras, orden))
+#print("¿Listado ordenado?", alien_sorted(palabras, orden))

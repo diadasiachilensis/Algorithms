@@ -1,5 +1,7 @@
 # Verificación de Diccionario Alienígena
 
+![Texto alternativo](photo-alien.png)
+
 ## Descripción del Proyecto
 
 Este repositorio contiene una solución al problema **"Verificación de Diccionario Alienígena"**, habitual en entrevistas de empresas tecnológicas como Facebook, Microsoft y Google. El objetivo es comprobar si una lista de palabras está ordenada según un alfabeto personalizado (alienígena).
