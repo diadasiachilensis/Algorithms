@@ -2,76 +2,76 @@
 
 ## Descripción del Proyecto
 
-En este ejercicio abordamos el problema **"Verificación de Diccionario Alienígena"**, un reto común en entrevistas de empresas tecnológicas como Facebook, Microsoft y Google. El objetivo es determinar si una lista de palabras está ordenada según un alfabeto alienígena.
+Este repositorio contiene una solución al problema **"Verificación de Diccionario Alienígena"**, habitual en entrevistas de empresas tecnológicas como Facebook, Microsoft y Google. El objetivo es comprobar si una lista de palabras está ordenada según un alfabeto personalizado (alienígena).
 
 ## Planteamiento del Problema
 
-**Entradas:**
+* **Entradas**:
 
-* `words`: Lista de cadenas, por ejemplo, `["apple", "app"]`.
-* `order`: Cadena de 26 caracteres que define el alfabeto alienígena, por ejemplo, `"hlabcdefgijkmnopqrstuvwxyz"`.
+  * `words`: lista de cadenas, por ejemplo, `["apple", "app"]`.
+  * `order`: cadena de 26 caracteres que define el alfabeto alienígena, p. ej. `"hlabcdefgijkmnopqrstuvwxyz"`.
 
-**Salida:**
+* **Salida**:
 
-* Valor booleano (`True` o `False`):
+  * Valor booleano (`True` o `False`):
 
-  * `True` si `palabras` está ordenada lexicográficamente según `order`.
-  * `False` en caso contrario.
+    * `True` si `words` está ordenada lexicográficamente según `order`.
+    * `False` en caso contrario.
 
-## Cómo Resolverlo
+## Solución en Python
 
-1. **Construir el Mapa del Alfabeto Alienígena**
-   Creamos un diccionario que asigne a cada letra su posición en `order`:
+```python
+def alien_sorted(words, order):
+    # 1) Construir el diccionario que mapea cada letra a su posición
+    letter_order = {}
+    for idx, letter in enumerate(order):
+        letter_order[letter] = idx
 
-   ```python
-   letter_order = {car: idx for idx, car in enumerate(order)}
-   ```
+    # 2) Función interna para comparar dos palabras según el alfabeto alienígena
+    def compare(w1, w2):
+        n = min(len(w1), len(w2))
+        for j in range(n):
+            if letter_order[w1[j]] < letter_order[w2[j]]:
+                return True   # w1 < w2
+            if letter_order[w1[j]] > letter_order[w2[j]]:
+                return False  # w1 > w2
+        # Si todas las letras coinciden hasta la longitud más corta:
+        return len(w1) <= len(w2)
 
-2. **Comparar Dos Palabras**
+    # 3) Verificar cada par de palabras consecutivas
+    for i in range(1, len(words)):
+        if not compare(words[i-1], words[i]):
+            return False
+    return True
+```
 
-   * Recorremos carácter a carácter hasta encontrar la primera diferencia.
-   * Si la letra de la primera palabra aparece antes en `letter_order`, esa palabra es menor.
-   * Si aparecen todas iguales hasta el final de la palabra más corta, consideramos menor a la palabra de menor longitud.
-
-3. **Verificar Toda la Lista**
-   Recorremos la lista de palabras comparando cada par consecutivo:
-
-   ```python
-   for i in range(1, len(palabras)):
-       if not comparar(palabras[i-1], palabras[i]):
-           return False
-   return True
-   ```
-
-## Ejemplo de Uso
+### Ejemplo de uso
 
 ```python
 if __name__ == "__main__":
     palabras = ["hola", "holaa", "holb"]
-    order = "hlabcdefgijkmnopqrstuvwxyz"
-    resultado = is_alien_sorted(palabras, order)
-    print("¿Está ordenado?", resultado)  # → True
+    orden = "hlabcdefgijkmnopqrstuvwxyz"
+    resultado = alien_sorted(palabras, orden)
+    print("¿La lista está ordenada?", resultado)  # → True
 ```
 
 ## Análisis de Complejidad
 
 * **Tiempo:** O(n · L)
 
-  * n = número de palabras
-  * L = longitud máxima de las palabras
-* **Espacio extra:** O(1) (sin contar el almacenamiento de entrada)
+  * n = número de palabras en la lista.
+  * L = longitud máxima de las palabras.
+* **Espacio extra:** O(1) (aparte de la entrada y la pila de llamadas).
 
-## Por Qué Importa Este Problema
+## Importancia del Ejercicio
 
-* Evalúa la comprensión de órdenes lexicográficas y comparaciones personalizadas.
-* Mide la habilidad para diseñar soluciones eficientes con estructuras de datos básicas.
-* Es un ejercicio habitual en entrevistas para valorar tu capacidad de razonamiento y organización de código.
+* Refuerza conceptos de **comparación lexicográfica** personalizada y uso de diccionarios.
+* Evalúa la capacidad de diseñar lógica clara y eficiente con estructuras de datos básicas.
+* Frecuente en entrevistas técnicas para medir razonamiento algorítmico.
 
 ## Consejos Prácticos
 
-* Divide el problema en pasos claros y abórdalos uno a uno.
-* Añade comentarios en el código para explicar la lógica.
-* Prueba con distintos casos, incluyendo casos límite y prefijos.
-* Planifica tu enfoque antes de escribir código para evitar errores.
-
-¡Éxito en tu práctica! 🚀
+1. Divide el problema en las tres etapas esenciales (mapa, comparación, verificación).
+2. Añade comentarios para explicar cada bloque de código.
+3. Prueba con casos límite: palabras idénticas, una palabra prefijo de otra, caracteres fuera de orden, etc.
+4. Verifica manualmente pequeños ejemplos antes de automatizar pruebas.
