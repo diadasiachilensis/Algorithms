@@ -1,20 +1,37 @@
-order= ["hlabcdfgijkmnopqrstuvwxyz"]
-
-def alien_sorted(words,order):
-    #1. Hacemos un diccionario que le dice cada letra que posicion tiene
-    #Por ejemplo, si order = "bac...", entonces 'b' → 0, 'a' → 1, 'c' → 2, ...
+def alien_sorted(words, order):
+    # 1) Inicializamos el diccionario que mapeará cada letra a su posición
+    letter_order = {}
     for i in range(len(order)):
-        letter=order[i]
-        letter_order[letter]=i
+        letter = order[i]
+        letter_order[letter] = i
 
-    #2. Funcion para comprara dos palabras segun nuestro diccionario alienigena 
-    def compare(w1,w2):
-        #Miramos letra por letra hasta que una sea distinta
-        n=min(len(w1),len(w2))
+    # 2) Función interna para comparar dos palabras
+    def compare(w1, w2):
+        n = min(len(w1), len(w2))
         for j in range(n):
-            # si la letra de w1 va antes en el diccionario, w1 < w2 → OK
             if letter_order[w1[j]] < letter_order[w2[j]]:
                 print(f"{w1} < {w2} → ✅")
                 return True
-            #si va despues, ya sabemos que no esta ordenado
-            
+            if letter_order[w1[j]] > letter_order[w2[j]]:
+                print(f"{w1} > {w2} → ❌")
+                return False
+        # Si llegamos aquí, son iguales hasta la longitud más corta
+        resultado = len(w1) <= len(w2)
+        signo = "✅" if resultado else "❌"
+        print(f"{w1} y {w2} iguales hasta el fin, gana la más corta → {signo}")
+        return resultado
+
+    # 3) Recorremos la lista de palabras comparando cada par consecutivo
+    for k in range(1, len(words)):
+        if not compare(words[k-1], words[k]):
+            print("Encontramos un par fuera de orden")
+            return False
+
+    return True  # Si nunca falló, todo está bien
+
+
+# ---- Ejemplo de uso ----
+palabras = ["hola", "holaa", "holb"]
+orden = "hlabcdefgijkmnopqrstuvwxyz"
+
+print("¿Listado ordenado?", alien_sorted(palabras, orden))
