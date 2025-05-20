@@ -8,23 +8,23 @@ En este ejercicio abordamos el problema **"Verificación de Diccionario Alieníg
 
 **Entradas:**
 
-* `palabras`: Lista de cadenas, por ejemplo, `["apple", "app"]`.
-* `orden`: Cadena de 26 caracteres que define el alfabeto alienígena, por ejemplo, `"hlabcdefgijkmnopqrstuvwxyz"`.
+* `words`: Lista de cadenas, por ejemplo, `["apple", "app"]`.
+* `order`: Cadena de 26 caracteres que define el alfabeto alienígena, por ejemplo, `"hlabcdefgijkmnopqrstuvwxyz"`.
 
 **Salida:**
 
 * Valor booleano (`True` o `False`):
 
-  * `True` si `palabras` está ordenada lexicográficamente según `orden`.
+  * `True` si `palabras` está ordenada lexicográficamente según `order`.
   * `False` en caso contrario.
 
 ## Cómo Resolverlo
 
 1. **Construir el Mapa del Alfabeto Alienígena**
-   Creamos un diccionario que asigne a cada letra su posición en `orden`:
+   Creamos un diccionario que asigne a cada letra su posición en `order`:
 
    ```python
-   letter_order = {car: idx for idx, car in enumerate(orden)}
+   letter_order = {car: idx for idx, car in enumerate(order)}
    ```
 
 2. **Comparar Dos Palabras**
@@ -48,8 +48,8 @@ En este ejercicio abordamos el problema **"Verificación de Diccionario Alieníg
 ```python
 if __name__ == "__main__":
     palabras = ["hola", "holaa", "holb"]
-    orden = "hlabcdefgijkmnopqrstuvwxyz"
-    resultado = is_alien_sorted(palabras, orden)
+    order = "hlabcdefgijkmnopqrstuvwxyz"
+    resultado = is_alien_sorted(palabras, order)
     print("¿Está ordenado?", resultado)  # → True
 ```
 
