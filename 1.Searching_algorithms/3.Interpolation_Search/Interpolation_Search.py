@@ -1,24 +1,29 @@
-def interpolation_search(lista,elemento):
-  left=0
-  right=len(lista)-1
-  pasos=0
-  encontrado=False
-  while lista[right]!=lista[left] and lista[left]<=elemento<=lista[right]:
-    mid=left+(elemento-lista[left])*(right-left)//(lista[right]-lista[left])
-    pasos=+1
-    print(f"DEBUG: 'left:'{left}' | 'right:'{right}' | 'medio:'{mid}")
-    if elemento == lista[mid]:
-      print(f'Valor encontrado en {pasos} pasos, en la posicion {mid}')
-      encontrado==True
-      break
-    elif elemento<lista[mid]:
-      right=mid-1
-    else:
-      left=mid+1
-  print(f'Valor {elemento} no encontrado')
-  return encontrado
+def interpolation_search(arr,e):
+    i=0
+    j=len(arr)-1
+    pos=0
+    step=0
+    encontrado=False
+    while i <= j and e >= arr[i] and e < arr[j]:
+      pos= i + (((e-arr[i])*(j-i))//(arr[j]-arr[i]))
+      print(f"DEBUG: 'low: {i}' | 'high: {j}' | 'posicion: {pos} | 'pasos: {step}' ")
+      step=+1
+      if arr[pos] == e:
+        print(f"elemento {e} se encuentra en la posicion {pos}, el algoritmo lo ubico en {step} pasos")
+        print(f"DEBUG El elemento {e} esta en la poscion {pos}: |'low: {i}' | 'high: {j}' | 'pasos: {step}' | 'elemento {e}'")
 
-if __name__ =='__main__':
-  lista=[1,3,5,7,9,11,13,15,17,19,21,23]
-  elemento=5
-  interpolation_search(lista,elemento)
+        encontrado=True
+        return pos
+      elif arr[pos] < e:
+        print(f"DEBUG Si el {e} es menor que {pos}: |'low: {i}' | 'el valor de {i} cambia a {pos+1}' | 'pasos: {step}' | 'elemento {e}'")
+        i=pos+1
+      else:
+        print(f"DEBUG Si el {e} es mayor que {pos}: 'high: {i}' | 'el valor de {j} cambia a {pos-1}' | 'pasos: {step}' | 'elemento {e}'")
+        j=pow-1
+    if encontrado==False:
+      print(f"El elemento {e} no esta en la lista")
+
+if __name__ == "__main__":
+    lista=[1,3,5,7,9,11,13,15,17,19,21,23]
+    elemento=5
+    interpolation_search(lista, elemento)

@@ -5,8 +5,7 @@ def interpolation_search_recursive(lista, elemento, left=0, right=None, pasos=0)
     
     if lista[right] != lista[left] and lista[left] <= elemento <= lista[right]:
         pasos += 1
-        mid = left + (elemento - lista[left]) * (right - left) / (lista[right] - lista[left])  # Use '/' instead of '//'
-        mid = int(mid)  # Convert mid to integer
+        mid = left + (elemento - lista[left]) * (right - left) // (lista[right] - lista[left])  # Use '/' instead of '//'
         
         print(f"DEBUG: 'left: {left}' | 'right: {right}' | 'medio: {mid}")
             
@@ -23,5 +22,5 @@ def interpolation_search_recursive(lista, elemento, left=0, right=None, pasos=0)
 
 if __name__ == '__main__':
     lista = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23]
-    elemento = 6
+    elemento = 13
     interpolation_search_recursive(lista, elemento)
