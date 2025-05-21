@@ -1,8 +1,8 @@
-# 📜 README.md: Explicación Detallada de `linear_search_recursive` y `linear_search`
+# 📜 Explicación Detallada de `linear_search_recursive` y `linear_search`
 
-Este documento describe y analiza dos implementaciones de búsqueda lineal en Python: una basada en recursión (`linear_search_recursive`) y otra en iteración mediante un bucle `while` (`linear_search`). Ambos algoritmos buscan un elemento específico inspeccionando secuencialmente los elementos de una lista.
+⬇️⬇️ Abajo de la imagen explicación del Algoritmo ⬇️⬇️
 
----
+![Busqueda lineal](linear-search.png)
 
 ## 📖 Índice
 
@@ -198,7 +198,3 @@ Se ha encontrado el 5 en la posición 2, en 3 pasos
 2. **Uso Recomendado**:  
    - `linear_search_recursive`: Ideal para aprender y enseñar recursión.  
    - `linear_search`: Más eficiente en términos de uso de memoria para listas grandes.
-
----
-
-Explora estos algoritmos, experimenta con diferentes listas y comprende las fortalezas y debilidades de cada enfoque. 🚀
