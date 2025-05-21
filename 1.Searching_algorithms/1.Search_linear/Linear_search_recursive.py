@@ -5,8 +5,8 @@ def linear_search_recursive(lista, indice, elemento,pasos=0):
     return -1
   if lista[indice]==elemento:
     print(f"El elemento {elemento} se encuentra en la posición {indice}. Se encontró en {pasos} pasos.")
-    pasos+=1
-  elif lista[indice]!=elemento:
+    return indice
+  else:
     return linear_search_recursive(lista, indice+1, elemento, pasos+1)
 
 if __name__=="__main__":
