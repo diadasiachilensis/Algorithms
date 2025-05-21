@@ -1,24 +1,23 @@
-def interpolation_search_recursive(lista, elemento, left=0, right=None, pasos=0):
-    if right is None:
-        right = len(lista) - 1
+def interpolation_search_recursive(arr, e, i=0, j=None, step=0):
+    if j is None:
+        j = len(arr) - 1
     encontrado = False
     
-    if lista[right] != lista[left] and lista[left] <= elemento <= lista[right]:
-        pasos += 1
-        mid = left + (elemento - lista[left]) * (right - left) // (lista[right] - lista[left])  # Use '/' instead of '//'
-        
-        print(f"DEBUG: 'left: {left}' | 'right: {right}' | 'medio: {mid}")
-            
-        if elemento == lista[mid]:
-            print(f'Valor encontrado en {pasos} pasos, en la posicion {mid}')
+    if arr[j] != arr[i] and arr[i] <= e <= arr[j]:
+        step += 1
+        pos = i + ((e - arr[j]) * (j - i) // (arr[j] - arr[i]))
+        print(f"DEBUG: 'low: {i}' | 'high: {j}' | 'posicion: {pos} | 'step: {step}' ")
+
+        if e == arr[pos]:
+            print(f'Valor encontrado en {step} step, en la posicion {pos}')
             encontrado = True
-        elif elemento < lista[mid]:
-            return interpolation_search_recursive(lista, elemento, left, mid - 1, pasos)
+        elif e < arr[pos]:
+            return interpolation_search_recursive(arr, e, i, pos - 1, step)
         else:
-            return interpolation_search_recursive(lista, elemento, mid + 1, right, pasos)
+            return interpolation_search_recursive(arr, e, pos + 1, j, step)
     
     if not encontrado:
-        print(f'Valor {elemento} no encontrado')
+        print(f'Valor {e} no encontrado')
 
 if __name__ == '__main__':
     lista = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23]
