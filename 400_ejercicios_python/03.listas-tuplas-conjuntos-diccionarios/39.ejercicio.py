@@ -1,18 +1,25 @@
-def inname1():
-    lista=[]
+lista1=[]
+def inname1(lista1):
+
     while True:
         try:
             name=str(input("Ingrese el nombre de pila del estudiante (ingrese x para finalizar): "))
             if name.isalpha() == True: 
-                if name == "x":
-                     break     
-                lista.append(name)                
+                if name.lower() == "x":
+                    break     
+                #Validar que haya solo letras y espacios
+                if all(c.isalpha() or c.isspace() for c in name) and name != "":
+                    lista1.append(name)
+                    print("✅ Nombre ingresado correctamente")
+                else:
+                    print("⚠️ Ingrese solo nombres de manera correcta")               
         except ValueError as e:
-            print(f"Ocurrio un error: {e}")
-            
+            print(f"⚠️ Ocurrio un error: {e}")
+            print("⚠️ Ingrese los nombres de manera correcta")
+    return lista1
 
-              
-    return      
+def inname2():
+     
 
 def menu(option):
     while True:
