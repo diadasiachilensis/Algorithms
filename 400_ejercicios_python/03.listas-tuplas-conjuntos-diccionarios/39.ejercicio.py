@@ -1,9 +1,11 @@
 lista1=[]
 lista2=[]
+namerepeat=[]
 
 def inname1(lista1):
     while True:
         try:
+            print("--LISTA PRIMARIA --\n")
             name=str(input("Ingrese el nombre de pila del estudiante (ingrese x para finalizar): "))
             if name.isalpha() == True: 
                 if name.lower() == "x":
@@ -20,7 +22,29 @@ def inname1(lista1):
     return lista1
 
 def inname2():
-    
+    while True:
+        try:
+            print("--LISTA SECUNDARIA --\n")
+            name=str(input("Ingrese el nombre de pila del estudiante (ingrese x para finalizar): "))
+            if name.isalpha() == True: 
+                if name.lower() == "x":
+                    break     
+                #Validar que haya solo letras y espacios
+                if all(c.isalpha() or c.isspace() for c in name) and name != "":
+                    lista2.append(name)
+                    print("✅ Nombre ingresado correctamente")
+                else:
+                    print("⚠️ Ingrese solo nombres de manera correcta")               
+        except ValueError as e:
+            print(f"⚠️ Ocurrio un error: {e}")
+            print("⚠️ Ingrese los nombres de manera correcta")
+    return lista2 
+
+def compare(lista1,lista2,namerepeat):
+    for i in lista1:
+         for j in lista2: 
+            if i == j:
+                namerepeat.append(i)
     return
 
 def menu(option):
