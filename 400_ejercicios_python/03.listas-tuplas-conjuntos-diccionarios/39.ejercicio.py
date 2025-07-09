@@ -1,6 +1,7 @@
 lista1=[]
-def inname1(lista1):
+lista2=[]
 
+def inname1(lista1):
     while True:
         try:
             name=str(input("Ingrese el nombre de pila del estudiante (ingrese x para finalizar): "))
@@ -19,7 +20,8 @@ def inname1(lista1):
     return lista1
 
 def inname2():
-     
+    
+    return
 
 def menu(option):
     while True:
