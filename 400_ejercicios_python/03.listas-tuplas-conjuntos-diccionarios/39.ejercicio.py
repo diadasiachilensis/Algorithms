@@ -21,7 +21,7 @@ def inname1(lista1):
             print("⚠️ Ingrese los nombres de manera correcta")
     return lista1
 
-def inname2():
+def inname2(lista2):
     while True:
         try:
             print("--LISTA SECUNDARIA --\n")
@@ -46,6 +46,10 @@ def compare(lista1,lista2,namerepeat):
             if i == j:
                 namerepeat.append(i)
     return
+
+def returnlist(lista1, lista2):
+    if 
+    return lista1,lista2
 
 def menu(option):
     while True:
@@ -83,7 +87,7 @@ def menu(option):
         elif option == 6: 
                 ()
         elif option == 7:
-                ()
+                exit()
 
 #Ejecutar el programa
 if __name__ == "__main__":
