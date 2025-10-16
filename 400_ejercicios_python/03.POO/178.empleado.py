@@ -22,4 +22,3 @@ empleado1.mostrar_informacion()
 empleado1.aumentar_salario(10)
 
 empleado1.mostrar_informacion()
-            
