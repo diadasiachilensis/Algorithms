@@ -21,14 +21,14 @@ class Banco:
         #Buscar la cuenta emisora
         cuenta_emisor = None
         for cuenta in self.cuentas:
-            if cuenta['cuenta'] == n_emisor:
+            if cuenta['numero'] == n_emisor:
                 cuenta_emisor = cuenta
                 break
         
         #Buscar la cuenta receptora
         cuenta_receptora = None
         for cuenta in self.cuentas:
-            if cuenta['cuenta'] == n_receptor:
+            if cuenta['numero'] == n_receptor:
                 cuenta_receptora = cuenta
                 break
         
