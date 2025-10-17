@@ -10,5 +10,5 @@ int main(){
     // (void*)&myVal: Convierte esa dirección a puntero genérico para imprimirla correctamente.
     printf("Size of the address to 'myVal': %lu bytes\n", (unsigned long) sizeof(&myVal)); // 8 bytes
 
-   return 0;
+return 0;
 }
