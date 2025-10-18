@@ -1,3 +1,4 @@
+```python
 """
 Clase Música: Implementa una clase Musica con atributos como título, 
 artista y género, y métodos para reproducir y pausar la música.
@@ -84,7 +85,7 @@ class MusicPlayer:
             self.label.config(text="▶️ Música reanudada.")
         else:
             self.label.config(text="⚠️ No hay música en pausa.")
-    
+
     # ⏹️ stop_music() -- Detiene la reproducción completamente.
     def stop_music(self):
         if self.file_loaded:
@@ -93,11 +94,6 @@ class MusicPlayer:
         else:
             self.label.config(text="⚠️ No hay canción cargada.")
 
-
-
-
-
-
 """ -- Ejecutar la aplicacion -- """
 #esta es una ventana contenedor del programa, donde estaran los botnoes y textos
 root = tk.Tk()
@@ -105,3 +101,4 @@ root = tk.Tk()
 app = MusicPlayer(root)
 #mantener la ventana abierta, para que no se cierre inmediatamente
 root.mainloop()
+```
