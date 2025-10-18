@@ -9,7 +9,7 @@ class Banco:
             'numero' : numero, 
             'saldo'  : saldo_inicial
         }
-        self.cuentas.append(saldo_inicial)
+        self.cuentas.append(nueva_cuenta)
         print(f"Cuenta {numero} creada con saldo inicial de ${saldo_inicial}")
     
     def calcular_saldo(self):

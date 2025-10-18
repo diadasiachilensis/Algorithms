@@ -3,10 +3,15 @@ class Tienda:
         self.productos=[]
 
     def add_prods(self,producto,precio):
-        self.productos.append({'Producto':producto,'valor':precio})
+        self.productos.append({
+            'Producto':producto,
+            'valor':precio
+        })
     
     def calcular_total(self):
-        total=sum([valor['valor'] for valor in self.productos])
+        total=sum([valor['valor'] 
+            for valor in self.productos
+        ])
         print(f"El precio total de la compra es: {total}")
 
 #Ejemplo de uso
