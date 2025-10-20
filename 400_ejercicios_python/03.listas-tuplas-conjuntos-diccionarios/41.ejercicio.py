@@ -4,7 +4,6 @@
 """
 import string                       #modulo string
 
-
 def lectura(list_strings):
     #es el alfabeto ocupando el modulo string
     alfabeto = string.ascii_lowercase   
@@ -19,8 +18,28 @@ def lectura(list_strings):
                     conteo[letra] += 1
                 else:
                     conteo[letra] = 1
-        return conteo
+    return conteo
+    print(conteo)
 
+palabras = [
+    "computadora",
+    "programación",
+    "biología",
+    "análisis",
+    "datos",
+    "inteligencia",
+    "artificial",
+    "educación",
+    "sistema",
+    "algoritmo",
+    "aprendizaje",
+    "informática",
+    "modelo",
+    "proyecto",
+    "tecnología"
+]
+
+print(lectura(palabras))
 
 
 
