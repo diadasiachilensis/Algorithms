@@ -40,13 +40,3 @@ palabras = [
 ]
 
 print(lectura(palabras))
-
-
-
-"""
-def menu(word):
-    i=0
-    while i<50:
-        word.append(list_string)
-        i+=1
-"""    
