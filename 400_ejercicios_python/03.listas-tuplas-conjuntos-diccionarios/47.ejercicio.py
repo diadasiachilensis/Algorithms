@@ -1,19 +1,24 @@
-def search_word(A, B):
-    print(f"🔎 Comparando las letras de '{A}' con las letras de '{B}'...\n")
-    # Bucle externo: recorre cada letra de A
-    for i in A:
-        print(f"\n➡️ Nueva letra de A: '{i}'")
-        # Bucle interno: recorre cada letra de B
-        for j in B:
-            print(f"   - Comparando '{i}' con '{j}'...")
-            if i == j:
-                print(f"     🎯 Coincidencia encontrada -> '{i}' está en B")
-                break  # salimos del bucle interno y pasamos a la siguiente letra de A
-            else:
-                print(f"     ❌ No coincide, seguir buscando en B...")
-        print(f"   🔁 Fin de recorrido de B para la letra '{i}'")
-    print("\n✅ Fin de comparación entre cadenas.")
+def contar_palabras(texto):
+    # Paso 1: Convertir todo el texto a minúsculas (para evitar diferencias entre "Hola" y "hola")
+    texto = texto.lower()
 
-A = "sol"
-B = "abscsolwxyz"
-search_word(A, B)
+    # Paso 2: Dividir el texto en palabras (usa split)
+    palabras = texto.split()
+
+    # Paso 3: Crear un diccionario vacío para contar las palabras
+    conteo = {}
+
+    # Paso 4: Recorrer cada palabra y acumular su frecuencia
+    for palabra in palabras:
+        if palabra in conteo:
+            conteo[palabra] += 1
+        else:
+            conteo[palabra] = 1
+
+    # Paso 5: Mostrar o devolver el resultado
+    return conteo
+
+# Ejemplo de uso
+frase = "Sol sol brilla fuerte porque el sol ilumina todo"
+resultado = contar_palabras(frase)
+print(resultado)
