@@ -1,43 +1,97 @@
-club = [
-    {'number': 1, 'info': {'name': 'Guillermo', 'last name': 'Vidal', 'membership': 'Premium', 'update': 'Up to date'}},
-    {'number': 2, 'info': {'name': 'Tamara', 'last name': 'Muñoz', 'membership': 'Standard', 'update': 'Up to date'}},
-    {'number': 3, 'info': {'name': 'Hernán', 'last name': 'Pérez', 'membership': 'Basic', 'update': 'Pending'}},
-    {'number': 4, 'info': {'name': 'Paola', 'last name': 'Rojas', 'membership': 'Premium', 'update': 'Up to date'}},
-    {'number': 5, 'info': {'name': 'Franco', 'last name': 'Soto', 'membership': 'Standard', 'update': 'Pending'}},
-    {'number': 6, 'info': {'name': 'Claudia', 'last name': 'Durán', 'membership': 'Basic', 'update': 'Up to date'}},
-    {'number': 7, 'info': {'name': 'Andrea', 'last name': 'Salinas', 'membership': 'Premium', 'update': 'Up to date'}},
-    {'number': 8, 'info': {'name': 'Javier', 'last name': 'Torres', 'membership': 'Standard', 'update': 'Pending'}},
-    {'number': 9, 'info': {'name': 'Marcela', 'last name': 'Campos', 'membership': 'Premium', 'update': 'Up to date'}},
-    {'number': 10, 'info': {'name': 'Rodrigo', 'last name': 'Fuentes', 'membership': 'Basic', 'update': 'Pending'}},
-    {'number': 11, 'info': {'name': 'Valentina', 'last name': 'Lagos', 'membership': 'Standard', 'update': 'Up to date'}},
-    {'number': 12, 'info': {'name': 'Cristóbal', 'last name': 'Reyes', 'membership': 'Premium', 'update': 'Up to date'}},
-    {'number': 13, 'info': {'name': 'Isidora', 'last name': 'Gómez', 'membership': 'Basic', 'update': 'Pending'}},
-    {'number': 14, 'info': {'name': 'Matías', 'last name': 'Carrasco', 'membership': 'Premium', 'update': 'Up to date'}},
-    {'number': 15, 'info': {'name': 'Natalia', 'last name': 'Vega', 'membership': 'Standard', 'update': 'Up to date'}},
-    {'number': 16, 'info': {'name': 'Felipe', 'last name': 'Contreras', 'membership': 'Basic', 'update': 'Pending'}},
-    {'number': 17, 'info': {'name': 'Antonia', 'last name': 'Navarro', 'membership': 'Premium', 'update': 'Up to date'}}
-]
+# Club members data (preloaded founders)
+club = {
+    1: {"name": "Alice Johnson", "join_date": "17/03/2009", "membership": "Premium", "status": "Up to date"},
+    2: {"name": "Brian Smith", "join_date": "17/03/2009", "membership": "Standard", "status": "Up to date"},
+    3: {"name": "Charlie Evans", "join_date": "17/03/2009", "membership": "Basic", "status": "Up to date"},
+    4: {"name": "Diana Roberts", "join_date": "13/03/2018", "membership": "Standard", "status": "Pending"},
+    5: {"name": "Edward Brown", "join_date": "13/03/2018", "membership": "Premium", "status": "Pending"},
+    6: {"name": "Fiona Clark", "join_date": "12/03/2018", "membership": "Basic", "status": "Up to date"},
+}
 
+# Show all members
+def show_members():
+    print("\n=== Club Members List ===")
+    for num, info in club.items():
+        print(f"#{num}: {info['name']} | Joined: {info['join_date']} | Plan: {info['membership']} | Status: {info['status']}")
+    print()
 
-def members(a):
-    return len(a)
+# Add a new member
+def add_member():
+    num = max(club.keys()) + 1
+    name = input("Enter member full name: ").title()
+    join_date = input("Enter join date (dd/mm/yyyy): ")
+    membership = input("Enter membership type (Basic / Standard / Premium): ").capitalize()
+    status = input("Is the payment up to date? (y/n): ").lower()
+    status = "Up to date" if status == "y" else "Pending"
+    club[num] = {"name": name, "join_date": join_date, "membership": membership, "status": status}
+    print(f"✅ Member added successfully with number #{num}.\n")
 
-def payment_update(b):
-    member=b-1
-    #Solicitar al usuario el número de un socio y registrar que ha pagado todas las cuotas adeudadas.
-    club[member]
-    
+# Count members
+def count_members():
+    print(f"\n📊 Total members: {len(club)}\n")
 
-def modified_date():
-    #Modificar la fecha de ingreso de todos los socios ingresados el 13/03/2018, para indicar que en realidad ingresaron el 14/03/2018.
-    pass
+# Update payment status
+def update_payment():
+    try:
+        num = int(input("Enter member number to update payment: "))
+        if num in club:
+            club[num]["status"] = "Up to date"
+            print(f"✅ {club[num]['name']} is now up to date with payments.\n")
+        else:
+            print("❌ Member number not found.\n")
+    except ValueError:
+        print("⚠️ Please enter a valid number.\n")
 
+# Correct join dates (13/03/2018 → 14/03/2018)
+def fix_join_dates():
+    count = 0
+    for info in club.values():
+        if info["join_date"] == "13/03/2018":
+            info["join_date"] = "14/03/2018"
+            count += 1
+    print(f"🗓️ Updated join date for {count} members.\n")
+
+# Remove a member by name
 def remove_member():
-    #Solicitar el nombre y apellido de un socio y darlo de baja (eliminarlo del listado).
-    pass
+    name = input("Enter full name of the member to remove: ").title()
+    for num, info in list(club.items()):
+        if info["name"] == name:
+            del club[num]
+            print(f"❎ {name} has been removed from the club.\n")
+            return
+    print("❌ Member not found.\n")
 
-def print_club():
-    #Imprimir el listado de socios completo.
-    pass
+# Main menu
+def menu():
+    while True:
+        print("=== CLUB MANAGEMENT MENU ===")
+        print("1. Show total members")
+        print("2. Add a new member")
+        print("3. Update payment status")
+        print("4. Fix join dates (13/03/2018 → 14/03/2018)")
+        print("5. Remove a member")
+        print("6. Show all members")
+        print("7. Exit")
 
-print(payment_update())
+        option = input("Select an option (1-7): ")
+
+        if option == "1":
+            count_members()
+        elif option == "2":
+            add_member()
+        elif option == "3":
+            update_payment()
+        elif option == "4":
+            fix_join_dates()
+        elif option == "5":
+            remove_member()
+        elif option == "6":
+            show_members()
+        elif option == "7":
+            print("👋 Exiting program...")
+            break
+        else:
+            print("⚠️ Invalid option, please try again.\n")
+
+# Run program
+menu()
