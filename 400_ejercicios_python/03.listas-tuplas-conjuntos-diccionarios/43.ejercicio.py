@@ -5,7 +5,7 @@ def contar_elementos(list_bulleye,p):
         if i == p:
             n += 1
             dictionary[i] = n
-    print(dictionary)
+    print(f"📊 Resultado del conteo de {p}: {n}")
     return dictionary
     
 
