@@ -16,8 +16,8 @@ tienda = {
             "facebook": "facebook.com/losaromosmarket"
         },
         "licencia_sanitaria": {
-            "numero": "LS-2033-CH",
-            "vigencia": "2026-12-31"
+            "numero licencia sanitaria": "LS-2033-CH",
+            "vigencia licencia sanitaria": "2026-12-31"
         }
     },
 
@@ -199,29 +199,84 @@ tienda = {
     }
 }
 
-# 🧭 1. Acceso a datos
-def access_data(tienda):
-    selection = list(tienda["informacion"].keys())
-    print("Información Minimarket Los Aromos\n\tEscriba su opción de la información que desea ingresar:")
-    for i in selection:
-        print(f"- {i}")
-    while True:    
-        try: 
-            option=input("escriba de forma correcta la información que desea obtener: ").lower()
-            for k,v in tienda["informacion"].items(): 
-                if k.lower() == option:
-                    print(f"{k.capitalize()} es {v}")
-                    return False
-        except Exception as e:
-            print("❌ Error:", e)
-            print("Escirba su opcion de manera correcta")
-            return True
+""" ------ 🧩 2. Recorrido de elementos ------"""
+# Recorrer todos los productos para mostrar su información (nombre, precio, stock).
+# Recorrer únicamente las claves o los valores.
+# Recorrer tanto claves como valores de todos los niveles (bucles anidados).
+# Obtener todas las categorías de productos disponibles.
+def iterate_data(option,tienda):
+    for k,v in tienda.items():
+        if k == option:
+            for i,j in v.items():
+                return i,j
+        return k,v
+    
 
 
-# Acceder a una categoría específica (por ejemplo, la información de la tienda).
+
+""" ------ 🧭 1. Acceso a datos ------ """
 # Acceder a un producto específico dentro de productos.
 #Consultar un atributo concreto (precio, stock, categoría).
 # Verificar si una clave existe dentro de los niveles del diccionario.
+def access_data(tienda):
+    print("Información Minimarket Los Aromos\n\tEscriba su opción de la información que desea ingresar:")
+    for k in tienda.keys():
+        print(f" - {k}")
+    while True: 
+        try:
+            option=input("escriba de forma correcta la información que desea obtener de la tienda: ").lower()
+            if "informacion"== option:
+                info_shop()
+                break
+            elif option in ["licencia sanitaria", "licencia_sanitaria"]:
+                info_sanitary()
+                break
+            elif "productos" == option:
+                products()
+                break
+            elif "empleados" == option:
+                employees()
+                break
+            elif "proveedores" == option:
+                suppliers()
+                break
+            elif "ventas" == option:
+                sales()
+                break
+            elif "clientes" == option:
+                customers()
+                break
+            elif option == "salir"
+                print("Saliendo del programa ... ")
+                break
+            else: 
+                print("⚠️ Opción no válida. Intente nuevamente.\n")
+                return True
+        except Exception as e:
+            print("❌ Error:", e)
+            print("Escriba su opcion de manera correcta")
+            return True
+
+
+        # Acceder a una categoría específica (por ejemplo, la información de la tienda).
+        selection = list(tienda["informacion"].keys())
+        selection.extend(list(tienda["licencia_sanitaria"].keys()))
+        for i in selection:
+            print(f"- {i}")
+        while True:    
+            try: 
+                option=input("escriba de forma correcta la información que desea obtener: ").lower()
+                for k,v in tienda["informacion"].items(): 
+                    if k.lower() == option:
+                        print(f"{k.capitalize()} es {v}")
+                        return False
+            except Exception as e:
+                print("❌ Error:", e)
+                print("Escriba su opcion de manera correcta")
+                return True
+
+
+
 
 # 🧩 2. Recorrido de elementos
 # Recorrer todos los productos para mostrar su información (nombre, precio, stock).
