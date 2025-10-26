@@ -201,79 +201,66 @@ tienda = {
 
 """ ------ 🧩 2. Recorrido de elementos ------"""
 # Recorrer todos los productos para mostrar su información (nombre, precio, stock).
+def show_products(tienda):
+    print("Lista de prodcutos y su información:\n")
+    for nombre, datos in tienda["productos"].items():
+        print(f"- {nombre.capitalize()}: Precio ${datos['precio']} | Stock: {datos['stock']}")
+
 # Recorrer únicamente las claves o los valores.
-# Recorrer tanto claves como valores de todos los niveles (bucles anidados).
-# Obtener todas las categorías de productos disponibles.
-def iterate_data(option,tienda):
-    for k,v in tienda.items():
-        if k == option:
-            for i,j in v.items():
-                return i,j
-        return k,v
+def scroll_key_values(tienda):
+    print("📦 atributos de los productos:")
+    for clave in tienda["productos"].keys():
+        print(f"- {clave}")
     
+    print("\n💰 Valores de productos:")
+    for valor in tienda["productos"].values():
+        print(valor)
+
+# Recorrer tanto claves como valores de todos los niveles (bucles anidados).
+def scroll_all_levels(tienda):
+    print("🔍 Información detallada de cada producto:\n")
+    for nombre, datos in tienda["productos"].items():
+        print(f"🧾 Producto: {nombre.capitalize()}")
+        for atributo, valor in datos.items():
+            print(f"   - {atributo}: {valor}")
+        print("-"*50)
+
+# Obtener todas las categorías de productos disponibles.
+def get_categories(tienda):
+    categorias = set()
+    for datos in tienda["productos"].values():
+        categorias.add(datos["categoria"])
+    print(f"🏷️ Categorías disponibles: {', '.join(categorias)}")
 
 
 
 """ ------ 🧭 1. Acceso a datos ------ """
-# Acceder a un producto específico dentro de productos.
-#Consultar un atributo concreto (precio, stock, categoría).
-# Verificar si una clave existe dentro de los niveles del diccionario.
-def access_data(tienda):
-    print("Información Minimarket Los Aromos\n\tEscriba su opción de la información que desea ingresar:")
-    for k in tienda.keys():
-        print(f" - {k}")
-    while True: 
+#Acceder a una categoría específica (por ejemplo, la información de la tienda).
+def info_shop(tienda):
+    print("📦 Accediendo a la categoría 'informacion'...\n")
+    print("Elija su opción para acceder a la información:\n")
+    for key in tienda["informacion"].keys():
+        print(f" - {key.capitalize()}")
+    while True:
         try:
-            option=input("escriba de forma correcta la información que desea obtener de la tienda: ").lower()
-            if "informacion"== option:
-                info_shop()
-                break
-            elif option in ["licencia sanitaria", "licencia_sanitaria"]:
-                info_sanitary()
-                break
-            elif "productos" == option:
-                products()
-                break
-            elif "empleados" == option:
-                employees()
-                break
-            elif "proveedores" == option:
-                suppliers()
-                break
-            elif "ventas" == option:
-                sales()
-                break
-            elif "clientes" == option:
-                customers()
-                break
-            elif option == "salir"
-                print("Saliendo del programa ... ")
-                break
-            else: 
-                print("⚠️ Opción no válida. Intente nuevamente.\n")
-                return True
+            selection = input("\nEscriba su opción: ").lower()
+            if selection in tienda["informacion"]:
+                print(f"\n✅ {selection.capitalize()} es: {tienda['informacion'][selection]}")
+                return False
+            else:
+                print("⚠️ Selección incorrecta. Escriba una opción válida.\n")
         except Exception as e:
             print("❌ Error:", e)
-            print("Escriba su opcion de manera correcta")
+            print("Escriba su opción de manera correcta.")
             return True
 
+# Acceder a un producto específico dentro de productos.
+def products(tienda):
+    
 
-        # Acceder a una categoría específica (por ejemplo, la información de la tienda).
-        selection = list(tienda["informacion"].keys())
-        selection.extend(list(tienda["licencia_sanitaria"].keys()))
-        for i in selection:
-            print(f"- {i}")
-        while True:    
-            try: 
-                option=input("escriba de forma correcta la información que desea obtener: ").lower()
-                for k,v in tienda["informacion"].items(): 
-                    if k.lower() == option:
-                        print(f"{k.capitalize()} es {v}")
-                        return False
-            except Exception as e:
-                print("❌ Error:", e)
-                print("Escriba su opcion de manera correcta")
-                return True
+#Consultar un atributo concreto (precio, stock, categoría).
+# Verificar si una clave existe dentro de los niveles del diccionario.
+
 
 
 
