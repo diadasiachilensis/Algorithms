@@ -659,3 +659,6 @@ def menu_modificaciones(tienda):
 
         except Exception as e:
             print("❌ Error:", e)
+
+if __name__ == "__main__":
+    menu_principal(tienda)
