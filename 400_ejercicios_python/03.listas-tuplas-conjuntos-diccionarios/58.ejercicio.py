@@ -5,7 +5,7 @@ de un diccionario si existe.
 def del_key(dic,key):
     if key in dic:
         valor=dic.pop(key)
-        print(f"✅ Clave '{key}' ha sido eliminada → Precio: ${dic[key]}")
+        print(f"✅ Clave '{key}' ha sido eliminada")
     else: 
         print(f"❌ No se encontró la clave '{key}' en el diccionario.")
 
