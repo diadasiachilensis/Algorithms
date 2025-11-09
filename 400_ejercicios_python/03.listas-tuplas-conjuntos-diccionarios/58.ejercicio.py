@@ -20,3 +20,4 @@ frutas = {
 
 del_key(frutas, "kiwi")     # Clave existente
 del_key(frutas, "sandía")   # Clave inexistente
+print("📋 Diccionario actualizado:", frutas)
