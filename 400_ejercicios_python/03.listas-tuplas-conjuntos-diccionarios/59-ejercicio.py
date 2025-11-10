@@ -92,7 +92,16 @@ def  del_contact(dic):
     while True:
         try: 
             print("========= 🗑️ EDICIÓN DE CONTACTOS 🗑️ =========")
-            
+            buscado=input("Ingrese el nombre del contacto que desea eliminar: ").strip()
+            buscado=detect_str(buscado,"nombre")
+            if buscado in dic:
+                print(f"✅ El contacto que desea eliminar existe \n -> El contacto es: \n 👤{buscado} \n Número de telefono 📞 +{dic[buscado]}")
+                desicion=input("Desea ejecutar la acción para que el contacto sea eliminad (s/n): ").strip().lower()
+                try:
+                    if desicion == "s":
+                        dic  
+                        
+                
         
         except ValueError as e: 
             print(f"⚠️ Entrada inválida. Debe ingresar los datos de manera correcta.\n Error inesperado {e}")
