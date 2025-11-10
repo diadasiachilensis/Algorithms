@@ -98,8 +98,18 @@ def  del_contact(dic):
                 print(f"✅ El contacto que desea eliminar existe \n -> El contacto es: \n 👤{buscado} \n Número de telefono 📞 +{dic[buscado]}")
                 desicion=input("Desea ejecutar la acción para que el contacto sea eliminad (s/n): ").strip().lower()
                 try:
-                    if desicion == "s":
-                        dic  
+                    while desicion == "s" or "n":
+                        if desicion == "s":
+                            eliminado=dic.pop(buscado)
+                            print(f"🗑️ Se eliminó el contacto {buscado}: {eliminado}")
+                            break
+                        elif desicion == "n": 
+                            print("🛡️ El contacto no sera eliminado.")
+                            break      
+                except ValueError as e:
+                    print(f"⚠️ Entrada inválida. Debe ingresar 's' o 'n'.\n Error inesperado {e}")
+
+                    
                         
                 
         
