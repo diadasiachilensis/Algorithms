@@ -41,12 +41,12 @@ def add_contact(dic):
 def edit_contact(dic):
     while True:
         try:
-            print("========= 🔧 EDICIÓN DE CONTACTOS 🔧 =========")
+            print("========= ✏️ EDICIÓN DE CONTACTOS ✏️ =========")
             buscado = input("Ingrese el nombre del contacto que desea cambiar: ")
             buscado = detect_str(buscado, "nombre")
             if buscado in dic:
                 opcion = input("""
-========= 🔧 EDICIÓN DE CONTACTOS 🔧 =========
+========= ✏️ EDICIÓN DE CONTACTOS ✏️ =========
 1. Nombre
 2. Apellido
 3. Número de teléfono
@@ -89,8 +89,35 @@ Seleccione una opción (1-4): """).strip()
             print("⚠️ Entrada inválida. Debe ingresar el nombre de manera correcta.")
 
 def  del_contact(dic):
-    while True: 
+    while True:
         try: 
+            print("========= 🗑️ EDICIÓN DE CONTACTOS 🗑️ =========")
+            buscado=input("Ingrese el nombre del contacto que desea eliminar: ").strip()
+            buscado=detect_str(buscado,"nombre")
+            if buscado in dic:
+                print(f"✅ El contacto que desea eliminar existe \n -> El contacto es: \n 👤{buscado} \n Número de telefono 📞 +{dic[buscado]}")
+                desicion=input("Desea ejecutar la acción para que el contacto sea eliminad (s/n): ").strip().lower()
+                try:
+                    while True:
+                        if desicion == "s":
+                            eliminado=dic.pop(buscado)
+                            print(f"🗑️ Se eliminó el contacto {buscado}: {eliminado}")
+                            return False
+                        elif desicion == "n": 
+                            print("🛡️ El contacto no sera eliminado.")
+                            return False
+                        else: 
+                            print("⚠️ Entrada inválida. Ingresa 's' para sí eliminar o 'n' para no eliminar el contacto.")
+                except ValueError as e:
+                    print(f"⚠️ Entrada inválida. Debe ingresar 's' o 'n'.\n Error inesperado {e}")
+
+                    
+                        
+                
+        
+        except ValueError as e: 
+            print(f"⚠️ Entrada inválida. Debe ingresar los datos de manera correcta.\n Error inesperado {e}")
+
             
     return menu()
     pass
