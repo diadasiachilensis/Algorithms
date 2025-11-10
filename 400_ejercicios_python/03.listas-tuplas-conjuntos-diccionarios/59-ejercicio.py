@@ -105,7 +105,9 @@ def  del_contact(dic):
                             break
                         elif desicion == "n": 
                             print("🛡️ El contacto no sera eliminado.")
-                            break      
+                            break
+                        else: 
+                            print("Ingresa 's' para sí o 'n' para no.")
                 except ValueError as e:
                     print(f"⚠️ Entrada inválida. Debe ingresar 's' o 'n'.\n Error inesperado {e}")
 
