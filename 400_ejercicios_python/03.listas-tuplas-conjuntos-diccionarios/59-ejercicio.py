@@ -2,21 +2,42 @@
 59)Diccionario de Contactos: Crea un diccionario de contactos con nombres y números de 
 teléfono.
 """
+def detect_str(valor,dato):
+    while not valor.strip().isalpha():
+        print(f"⚠️ {a} solo debe contener letras.")
+        a=input(f"Ingrese el {a} de la persona").strip()
+    return a
+
+def detect_int(b):
+    while not b.isdigit():
+        print(f"⚠️ El número de {b} solo debe contener dígitos.")
+        b=int(input(f"Ingrese el {b} de la persona").strip())
+    return b
+
+
 def add_contact(dic):
     while True: 
         try:
-            new_contact= []
-            name=input("Ingrese el nombre de la persona: ")
-            while name.lower.isalpha(): 
-                new_contact.append(name)    
-            subname= input("Ingrese el apellido de la persona: ")
-            phone=int(input("ingrese el numero de telefono de la persona sin agregar el +: "))
-            dic[f'{name} {subname}'] = phone
-            print(f"\n✅ Contacto agregado exitosamente:\n👤 {name} {subname}\n📞 +{phone}\n") # con salto de linea
+
+            # --- Nombre ---
+            nombre=input("Ingrese el nombre de la persona: ").strip()
+            detect_str(nombre)
+
+            # --- Apellido ---
+            apellido= input(f"Ingrese el apellido de la persona: ").strip()
+            detect_str(apellido)
+    
+            # --- Telefono ---
+            telefono=int(input("ingrese el numero de telefono de la persona sin agregar el +: "))
+            detect_int(telefono)
+
+            dic[f'{nombre} {apellido}'] = telefono
+
+            print(f"\n✅ Contacto agregado exitosamente:\n👤 {nombre} {apellido}\n📞 +{telefono}\n") # con salto de linea
         except ValueError:
             print("⚠️ Entrada inválida. Debe ingresar los datos de manera correcta.")
-    return menu()
-    pass
+        return menu()
+
 
 def edit_contact(dic):
     while True:
