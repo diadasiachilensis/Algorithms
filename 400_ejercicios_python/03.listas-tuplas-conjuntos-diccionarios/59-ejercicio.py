@@ -2,6 +2,16 @@
 59)Diccionario de Contactos: Crea un diccionario de contactos con nombres y números de 
 teléfono.
 """
+agenda = {
+    "Ana Pérez": 987654321,
+    "Luis González": 912345678,
+    "María López": 956789012,
+    "Pedro Rojas": 934567890,
+    "Camila Torres": 923456789
+}
+
+
+
 def detect_str(valor,dato):
     while not valor.strip().isalpha():
         print(f"⚠️ El {dato} solo debe contener letras.")
@@ -109,18 +119,10 @@ def  del_contact(dic):
                         else: 
                             print("⚠️ Entrada inválida. Ingresa 's' para sí eliminar o 'n' para no eliminar el contacto.")
                 except ValueError as e:
-                    print(f"⚠️ Entrada inválida. Debe ingresar 's' o 'n'.\n Error inesperado {e}")
-
-                    
-                        
-                
-        
+                    print(f"⚠️ Entrada inválida. Debe ingresar 's' o 'n'.\n Error inesperado {e}")                                     
         except ValueError as e: 
             print(f"⚠️ Entrada inválida. Debe ingresar los datos de manera correcta.\n Error inesperado {e}")
-
-            
     return menu()
-    pass
 
 def show_contact(dic):
     
@@ -154,15 +156,15 @@ Seleccione una opción (1-6): """))
                 continue
             else: 
                 if opcion == 1:
-                    add_contact(agenda)
+                    add_contact()
                 elif opcion == 2:
-                    edit_contact(agenda)
+                    edit_contact()
                 elif opcion == 3:
-                    del_contact(agenda)
+                    del_contact()
                 elif opcion == 4: 
-                    show_contact(agenda)
+                    show_contact()
                 elif opcion == 5:
-                    search_contact(agenda)
+                    search_contact()
                 elif opcion == 6: 
                     salir()
         except ValueError:
