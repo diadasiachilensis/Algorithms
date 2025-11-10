@@ -41,12 +41,12 @@ def add_contact(dic):
 def edit_contact(dic):
     while True:
         try:
-            print("========= 🔧 EDICIÓN DE CONTACTOS 🔧 =========")
+            print("========= ✏️ EDICIÓN DE CONTACTOS ✏️ =========")
             buscado = input("Ingrese el nombre del contacto que desea cambiar: ")
             buscado = detect_str(buscado, "nombre")
             if buscado in dic:
                 opcion = input("""
-========= 🔧 EDICIÓN DE CONTACTOS 🔧 =========
+========= ✏️ EDICIÓN DE CONTACTOS ✏️ =========
 1. Nombre
 2. Apellido
 3. Número de teléfono
@@ -91,7 +91,12 @@ Seleccione una opción (1-4): """).strip()
 def  del_contact(dic):
     while True:
         try: 
-            print("========= 🔧 EDICIÓN DE CONTACTOS 🔧 =========")
+            print("========= 🗑️ EDICIÓN DE CONTACTOS 🗑️ =========")
+            
+        
+        except ValueError as e: 
+            print(f"⚠️ Entrada inválida. Debe ingresar los datos de manera correcta.\n Error inesperado {e}")
+
             
     return menu()
     pass
