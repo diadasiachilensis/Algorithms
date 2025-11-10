@@ -41,6 +41,7 @@ def add_contact(dic):
 def edit_contact(dic):
     while True:
         try:
+            print("========= 🔧 EDICIÓN DE CONTACTOS 🔧 =========")
             buscado = input("Ingrese el nombre del contacto que desea cambiar: ")
             buscado = detect_str(buscado, "nombre")
             if buscado in dic:
@@ -56,29 +57,41 @@ Seleccione una opción (1-4): """).strip()
                     new_name = input("Ingrese el nuevo nombre: ").strip()
                     #separar y conservar el numero
                     if " " in buscado:                  # Si hay al menos un espacio en el texto
-                        partes=buscado.split(" ",1)
-                        apellido=partes[1]              #toma el segundo dato, el apellido
+                        partes   = buscado.split(" ",1)
+                        apellido = partes[1]              #toma el segundo dato, el apellido
                     else: 
                         apellido = ""                   # Si no hay espacio, deja apellido vacío
-                    new_contact = f"{new_name} {apellido}".strip()
+                    new_contact  = f"{new_name} {apellido}".strip()
                     # .pop() elimina la clave antigua y devuelve su valor; se reasigna el mismo número a la nueva clave
                     dic[new_contact]=dic.pop(buscado)   # Mueve el número al nuevo nombre: borra la clave vieja y conserva el valor
+                    return menu()
                 elif opcion == 2: 
-                    pass
-                elif opcion == 3: 
-                    pass
+                    new_subname=input("Ingrese el nuevo apellido: ").strip()
+                    if " " in buscado:
+                        partes   = buscado.split(" ",1)
+                        nombre = partes[0]
+                    else: 
+                        nombre  = ""
+                    new_contact = f"{nombre} {new_subname}".strip()
+                    dic[new_contact] = dic.pop(buscado)
+                    return menu()
+                elif opcion == 3:
+                    try: 
+                        new_phone = input("Ingrese el nuevo numero de telefono: ").strip()
+                        new_phone = detect_int(new_phone, "telefono")
+                        dic[buscado]=new_contact 
+                    except ValueError as e:
+                        print(f"⚠️ Entrada inválida. Debe ingresar los datos de manera correcta.\n Error inesperado {e}")
+                    return menu()
                 elif opcion == 4:
-                    exit()
-
-                    
-
+                    return menu()
         except ValueError:
             print("⚠️ Entrada inválida. Debe ingresar el nombre de manera correcta.")
-    return menu()
-    pass
 
 def  del_contact(dic):
-    
+    while True: 
+        try: 
+            
     return menu()
     pass
 
