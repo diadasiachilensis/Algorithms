@@ -18,31 +18,60 @@ def detect_int(valor,dato):
 def add_contact(dic):
     while True: 
         try:
-
             # --- Nombre ---
             nombre=input("Ingrese el nombre de la persona: ").strip()
-            detect_str(nombre)
+            nombre=detect_int(nombre,"nombre")
 
             # --- Apellido ---
             apellido= input(f"Ingrese el apellido de la persona: ").strip()
-            detect_str(apellido)
+            apellido=detect_int(nombre,"apellido")
     
             # --- Telefono ---
             telefono=int(input("ingrese el numero de telefono de la persona sin agregar el +: "))
-            detect_int(telefono)
+            telefono=detect_int(telefono,"telefono")
 
-            dic[f'{nombre} {apellido}'] = telefono
-
+            # --- Ingreso de datos ---
+            dic[f"{nombre} {apellido}"] = telefono
             print(f"\n✅ Contacto agregado exitosamente:\n👤 {nombre} {apellido}\n📞 +{telefono}\n") # con salto de linea
-        except ValueError:
-            print("⚠️ Entrada inválida. Debe ingresar los datos de manera correcta.")
+        except ValueError as e :
+            print(f"⚠️ Entrada inválida. Debe ingresar los datos de manera correcta.\n Error inesperado {e}")
         return menu()
 
 
 def edit_contact(dic):
     while True:
         try:
-            
+            buscado = input("Ingrese el nombre del contacto que desea cambiar: ")
+            buscado = detect_str(buscado, "nombre")
+            if buscado in dic:
+                opcion = input("""
+========= 🔧 EDICIÓN DE CONTACTOS 🔧 =========
+1. Nombre
+2. Apellido
+3. Número de teléfono
+4. Cancelar
+===============================================
+Seleccione una opción (1-4): """).strip()
+                if opcion == 1:
+                    new_name = input("Ingrese el nuevo nombre: ").strip()
+                    #separar y conservar el numero
+                    if " " in buscado:                  # Si hay al menos un espacio en el texto
+                        partes=buscado.split(" ",1)
+                        apellido=partes[1]              #toma el segundo dato, el apellido
+                    else: 
+                        apellido = ""                   # Si no hay espacio, deja apellido vacío
+                    new_contact = f"{new_name} {apellido}".strip()
+                    # .pop() elimina la clave antigua y devuelve su valor; se reasigna el mismo número a la nueva clave
+                    dic[new_contact]=dic.pop(buscado)   # Mueve el número al nuevo nombre: borra la clave vieja y conserva el valor
+                elif opcion == 2: 
+                    pass
+                elif opcion == 3: 
+                    pass
+                elif opcion == 4:
+                    exit()
+
+                    
+
         except ValueError:
             print("⚠️ Entrada inválida. Debe ingresar el nombre de manera correcta.")
     return menu()
@@ -98,7 +127,3 @@ Seleccione una opción (1-6): """))
                     salir()
         except ValueError:
             print("⚠️ Entrada inválida. Debe ingresar un número.")
-
-            
-
-    pass
