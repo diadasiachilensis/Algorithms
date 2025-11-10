@@ -156,15 +156,15 @@ Seleccione una opción (1-6): """))
                 continue
             else: 
                 if opcion == 1:
-                    add_contact(agenda)
+                    add_contact()
                 elif opcion == 2:
-                    edit_contact(agenda)
+                    edit_contact()
                 elif opcion == 3:
-                    del_contact(agenda)
+                    del_contact()
                 elif opcion == 4: 
-                    show_contact(agenda)
+                    show_contact()
                 elif opcion == 5:
-                    search_contact(agenda)
+                    search_contact()
                 elif opcion == 6: 
                     salir()
         except ValueError:
