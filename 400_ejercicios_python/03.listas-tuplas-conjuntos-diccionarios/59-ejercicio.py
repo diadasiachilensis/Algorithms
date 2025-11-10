@@ -89,8 +89,9 @@ Seleccione una opción (1-4): """).strip()
             print("⚠️ Entrada inválida. Debe ingresar el nombre de manera correcta.")
 
 def  del_contact(dic):
-    while True: 
+    while True:
         try: 
+            print("========= 🔧 EDICIÓN DE CONTACTOS 🔧 =========")
             
     return menu()
     pass
