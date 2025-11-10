@@ -4,15 +4,15 @@ teléfono.
 """
 def detect_str(valor,dato):
     while not valor.strip().isalpha():
-        print(f"⚠️ {a} solo debe contener letras.")
-        a=input(f"Ingrese el {a} de la persona").strip()
-    return a
+        print(f"⚠️ El {dato} solo debe contener letras.")
+        valor=input(f"Ingrese el {dato} de la persona").strip()
+    return valor
 
-def detect_int(b):
-    while not b.isdigit():
-        print(f"⚠️ El número de {b} solo debe contener dígitos.")
-        b=int(input(f"Ingrese el {b} de la persona").strip())
-    return b
+def detect_int(valor,dato):
+    while not valor.isdigit():
+        print(f"⚠️ El {dato} solo debe contener dígitos.")
+        valor=input(f"Ingrese nuevamente el {dato} de la persona: ").strip()
+    return int(valor)
 
 
 def add_contact(dic):
