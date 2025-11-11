@@ -24,10 +24,10 @@ def detect_int(valor,dato):
         valor=input(f"Ingrese nuevamente el {dato} de la persona: ").strip()
     return int(valor)
 
-
 def add_contact(dic):
     while True: 
         try:
+            print("========= 👤➕ AGREGAR CONTACTOS 👤➕ =========")
             # --- Nombre ---
             nombre=input("Ingrese el nombre de la persona: ").strip()
             nombre=detect_int(nombre,"nombre")
@@ -42,11 +42,10 @@ def add_contact(dic):
 
             # --- Ingreso de datos ---
             dic[f"{nombre} {apellido}"] = telefono
-            print(f"\n✅ Contacto agregado exitosamente:\n👤 {nombre} {apellido}\n📞 +{telefono}\n") # con salto de linea
+            print(f"\n✅💾 Contacto guardado exitosamente:\n👤 {nombre} {apellido}\n📞 +{telefono}\n") # con salto de linea
         except ValueError as e :
             print(f"⚠️ Entrada inválida. Debe ingresar los datos de manera correcta.\n Error inesperado {e}")
         return menu()
-
 
 def edit_contact(dic):
     while True:
