@@ -6,31 +6,37 @@ def detect_str(valor,dato):
 
 def  del_contact(dic):
     while True:
-        try: 
-            print("========= 🗑️ EDICIÓN DE CONTACTOS 🗑️ =========")
-            buscado=input("Ingrese el nombre del contacto que desea eliminar: ").strip().lower()
-            buscado=detect_str(buscado,"nombre")
-            for i in dic.keys():
-                j=i.split()
-                for s in j: 
-                    if s.lower() == buscado:
-                        print(f"✅ El contacto que desea eliminar existe \n -> El contacto es: \n 👤{buscado} \n Número de telefono 📞 +{dic[buscado]}")
-                        desicion=input("Desea ejecutar la acción para que el contacto sea eliminad (s/n): ").strip().lower()
-                        try:
-                            while True:
-                                if desicion == "s":
-                                    eliminado=dic.pop(buscado)
-                                    print(f"🗑️ Se eliminó el contacto {buscado}: {eliminado}")
-                                    return False
-                                elif desicion == "n": 
-                                    print("🛡️ El contacto no sera eliminado.")
-                                    return False
-                                else: 
-                                    print("⚠️ Entrada inválida. Ingresa 's' para sí eliminar o 'n' para no eliminar el contacto.")
-                        except ValueError as e:
-                            print(f"⚠️ Entrada inválida. Debe ingresar 's' o 'n'.\n Error inesperado {e}")
-        except ValueError as e:
-            print(f"⚠️ Entrada inválida. Debe ingresar 's' o 'n'.\n Error inesperado {e}")
+        print("========= 🗑️ EDICIÓN DE CONTACTOS 🗑️ =========")
+        buscado=input("Ingrese el nombre del contacto que desea eliminar: ").strip().lower()
+        buscado=detect_str(buscado,"nombre")
+
+        encontrado = True #🚩
+
+        #Buscar coincidencias parciales
+        for i in list(dic.keys()):
+            partes=i.lower().split()
+            if buscado in partes: 
+                encontrado = True #🚩
+                print(f"✅ El contacto que desea eliminar existe \n -> El contacto es: \n 👤{i} \n Número de telefono 📞 +{dic[i]}")
+                while True:
+                    decision = input("¿Desea eliminar el contacto? (s/n): ").strip().lower()
+                    if decision == "s":
+                        eliminado=dic.pop(i)
+                        print(f"🗑️ Se eliminó el contacto {i}: {eliminado}")
+                        return True
+                    elif decision == "n": 
+                        print("🛡️ El contacto no sera eliminado.")
+                        return False
+                    else: 
+                        print("⚠️ Entrada inválida. Ingresa 's' para sí o 'n' para no.")
+            
+            if not encontrado:
+                print(f"❌ No se encontró ningún contacto con el nombre '{buscado}'.")
+                opcion = input("¿Desea intentar nuevamente? (s/n): ").strip().lower()
+                if opcion != "s":
+                    print("👋 Operación cancelada por el usuario.")
+                    return False              
+
 
 if __name__ == "__main__":
     agenda = {
