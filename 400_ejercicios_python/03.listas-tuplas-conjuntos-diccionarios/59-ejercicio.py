@@ -10,7 +10,7 @@ agenda = {
     "Camila Torres": 923456789
 }
 
-
+cantidad = len(agenda)
 
 def detect_str(valor,dato):
     while not valor.strip().isalpha():
@@ -122,10 +122,24 @@ def  del_contact(dic):
                     print(f"⚠️ Entrada inválida. Debe ingresar 's' o 'n'.\n Error inesperado {e}")                                     
         except ValueError as e: 
             print(f"⚠️ Entrada inválida. Debe ingresar los datos de manera correcta.\n Error inesperado {e}")
-    return menu()
+        return menu()
 
 def show_contact(dic):
-    
+    while True:
+        try:
+            print("========= 📇 AGENDA DE CONTACTOS 📇 =========")
+            for key,value in agenda.items():
+                print(f"👤 {key} : 📞 +{value}")
+            print(f"📊 Total de contactos: {}")
+                
+                
+                
+            
+            print(f"{dic}")
+            print("")
+            pass
+        except ValueError as e: 
+            print("⚠️ Entrada inválida. Error inesperado {e}")
     return menu()
     pass
 
