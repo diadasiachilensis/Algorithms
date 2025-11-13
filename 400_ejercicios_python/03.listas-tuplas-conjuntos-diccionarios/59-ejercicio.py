@@ -131,8 +131,8 @@ def  del_contact(dic):
                     if opcion != "s":
                         print("👋 Operación cancelada por el usuario.")
                         return False
-        except ValueError:
-            print("⚠️ Entrada inválida. Debe ingresar el nombre de manera correcta.")
+        except Exception as e:
+            print(f"⚠️ Entrada inválida. Error ocurrido {e}.")
 
 def show_contact(dic):
     while True:
@@ -147,9 +147,27 @@ def show_contact(dic):
         return menu()
 
 def search_contact(dic):
-    
-    return menu()
-    pass
+    print("========= 🔎 BÚSQUEDA DE CONTACTOS 🔍 =========")
+    while True:
+        try:
+            buscado=input("Ingrese el nombre del contacto que desea buscar: ").strip().lower()
+            buscado=detect_str(buscado,"nombre")
+
+            encontrado = True #🚩
+            
+            for i in list(dic.keys()):
+                partes = i.lower().split()
+                if buscado in partes:
+                    encontrado = True #🚩
+                    print(f"✅ El contacto existe. -> El contacto es \n 👤{i} \n Número de telefono 📞 +{dic[i]}")
+                if not encontrado:
+                    print(f"❌ No se encontró ningún contacto con el nombre '{buscado}'.")
+                    opcion = input("¿Desea intentar nuevamente? (s/n): ").strip().lower()
+                    if opcion != "s":
+                        print("👋 Operación cancelada por el usuario.")
+                        return False
+        except Exception as e: 
+                print(f"⚠️ Entrada inválida. El tipo de error es {e}.")
 
 def salir():
     exit()
