@@ -2,16 +2,6 @@
 59)Diccionario de Contactos: Crea un diccionario de contactos con nombres y números de 
 teléfono.
 """
-agenda = {
-    "Ana Pérez": 987654321,
-    "Luis González": 912345678,
-    "María López": 956789012,
-    "Pedro Rojas": 934567890,
-    "Camila Torres": 923456789
-}
-
-cantidad = len(agenda)
-
 def accent(text):
     reemplazos = {
         "á": "a", "é": "e", "í": "i", "ó": "o", "ú": "u",
@@ -112,57 +102,37 @@ def  del_contact(dic):
     while True:
         try: 
             print("========= 🗑️ EDICIÓN DE CONTACTOS 🗑️ =========")
-            buscado=input("Ingrese el nombre del contacto que desea eliminar: ").strip()
+            buscado=input("Ingrese el nombre del contacto que desea eliminar: ").strip().lower()
             buscado=detect_str(buscado,"nombre")
-            if buscado in dic:
-                print(f"✅ El contacto que desea eliminar existe \n -> El contacto es: \n 👤{buscado} \n Número de telefono 📞 +{dic[buscado]}")
-                desicion=input("Desea ejecutar la acción para que el contacto sea eliminad (s/n): ").strip().lower()
-                try:
+
+            encontrado = True #🚩
+
+            #Buscar coincidencias parciales
+            for i in list(dic.keys()):
+                partes=i.lower().split()
+                if buscado in partes: 
+                    encontrado = True #🚩
+                    print(f"✅ El contacto que desea eliminar existe \n -> El contacto es: \n 👤{i} \n Número de telefono 📞 +{dic[i]}")
                     while True:
-                        if desicion == "s":
-                            eliminado=dic.pop(buscado)
-                            print(f"🗑️ Se eliminó el contacto {buscado}: {eliminado}")
-                            return False
-                        elif desicion == "n": 
+                        decision = input("¿Desea eliminar el contacto? (s/n): ").strip().lower()
+                        if decision == "s":
+                            eliminado=dic.pop(i)
+                            print(f"🗑️ Se eliminó el contacto {i}: {eliminado}")
+                            return True
+                        elif decision == "n": 
                             print("🛡️ El contacto no sera eliminado.")
                             return False
                         else: 
-                            print("⚠️ Entrada inválida. Ingresa 's' para sí eliminar o 'n' para no eliminar el contacto.")
-                except ValueError as e:
-                    print(f"⚠️ Entrada inválida. Debe ingresar 's' o 'n'.\n Error inesperado {e}")                                     
-        except ValueError as e: 
-            print(f"⚠️ Entrada inválida. Debe ingresar los datos de manera correcta.\n Error inesperado {e}")
-        return menu()
-        print("========= 🗑️ EDICIÓN DE CONTACTOS 🗑️ =========")
-        buscado=input("Ingrese el nombre del contacto que desea eliminar: ").strip().lower()
-        buscado=detect_str(buscado,"nombre")
+                            print("⚠️ Entrada inválida. Ingresa 's' para sí o 'n' para no.")
 
-        encontrado = True #🚩
-
-        #Buscar coincidencias parciales
-        for i in list(dic.keys()):
-            partes=i.lower().split()
-            if buscado in partes: 
-                encontrado = True #🚩
-                print(f"✅ El contacto que desea eliminar existe \n -> El contacto es: \n 👤{i} \n Número de telefono 📞 +{dic[i]}")
-                while True:
-                    decision = input("¿Desea eliminar el contacto? (s/n): ").strip().lower()
-                    if decision == "s":
-                        eliminado=dic.pop(i)
-                        print(f"🗑️ Se eliminó el contacto {i}: {eliminado}")
-                        return True
-                    elif decision == "n": 
-                        print("🛡️ El contacto no sera eliminado.")
+                if not encontrado:
+                    print(f"❌ No se encontró ningún contacto con el nombre '{buscado}'.")
+                    opcion = input("¿Desea intentar nuevamente? (s/n): ").strip().lower()
+                    if opcion != "s":
+                        print("👋 Operación cancelada por el usuario.")
                         return False
-                    else: 
-                        print("⚠️ Entrada inválida. Ingresa 's' para sí o 'n' para no.")
-            
-            if not encontrado:
-                print(f"❌ No se encontró ningún contacto con el nombre '{buscado}'.")
-                opcion = input("¿Desea intentar nuevamente? (s/n): ").strip().lower()
-                if opcion != "s":
-                    print("👋 Operación cancelada por el usuario.")
-                    return False
+        except ValueError:
+            print("⚠️ Entrada inválida. Debe ingresar el nombre de manera correcta.")
 
 def show_contact(dic):
     while True:
@@ -170,21 +140,14 @@ def show_contact(dic):
             print("========= 📇 AGENDA DE CONTACTOS 📇 =========")
             for key,value in agenda.items():
                 print(f"👤 {key} : 📞 +{value}")
-            print(f"📊 Total de contactos: {}")
-                
-                
-                
-            
-            print(f"{dic}")
-            print("")
-            pass
-        except ValueError as e: 
-            print("⚠️ Entrada inválida. Error inesperado {e}")
-    return menu()
-    pass
+            cantidad = len(dic)
+            print(f"📊 Total de contactos: {cantidad}")
+        except Exception as e:
+            print(f"⚠️ Error inesperado: {e}")
+        return menu()
 
 def search_contact(dic):
-
+    
     return menu()
     pass
 
