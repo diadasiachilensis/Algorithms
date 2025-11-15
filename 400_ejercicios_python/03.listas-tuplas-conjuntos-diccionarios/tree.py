@@ -11,3 +11,17 @@ def recorrer_dic_arbol(diccionario, nivel=0):
         else:
             # Muestra el valor simple con más sangría
             print(f"{sangria}    └── {valor}")
+
+def date_data(dic, nivel=1):
+    sangria   = "  " * nivel
+    rama      = "├── " 
+    ramalast = "└── "
+    """
+    Mostrar todas las fechas registradas
+    """
+    print("Fechas registradas")
+    for clave in dic.keys():
+        if not clave == list(dic)[-1]:
+            print(f"{sangria}{rama}{clave}")
+        else: 
+            print(f"{sangria}{ramalast}{clave}")
