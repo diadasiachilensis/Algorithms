@@ -10,7 +10,7 @@ numeros = [
     10, 22, 35, 90, 47, 14, 81, 55, 10, 35, 22, 47, 90, 14, 81, 55
 ]
 
-def frecuency(numeros):
+def frequency(numeros):
     print("🔍 Identificando frecuencia de datos...\n")
 
     frecuencia = {} #diccionario para contar numeros
@@ -29,7 +29,7 @@ def frecuency(numeros):
     print("\n🏁 Proceso completado con éxito.")
     return frecuencia
 
-resultado = frecuency(numeros)
+resultado = frequency(numeros)
 print("📊 Diccionario final de frecuencias:")
 print(resultado)
 
