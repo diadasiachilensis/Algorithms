@@ -31,152 +31,69 @@ def detect_int(valor,dato):
         valor=input(f"Ingrese nuevamente el {dato} de la persona: ").strip()
     return int(valor)
 
-def add_contact(dic): 
-    try:
-        # --- Nombre ---
-        nombre = detect_str(input("Ingrese el nombre de la persona: ").strip(),"nombre")
-        # --- Apellido ---
-        apellido = detect_str(input(f"Ingrese el apellido de la persona: ").strip(),"apellido")
-        telefono = detect_str(input("Ingrese teléfono sin +: ").strip(), "teléfono")
-        
-        # --- Ingreso de datos ---
-        key = f"{nombre} {apellido}"
-        
-        print(f"\n✅ Contacto agregado exitosamente:\n👤 {nombre} {apellido}\n📞 +{telefono}\n") # con salto de linea
-    except ValueError as e :
-        print(f"⚠️ Entrada inválida. Debe ingresar los datos de manera correcta.\n Error inesperado {e}")
-    return 
+def add_contact(dic,nombre,telefono): 
+    """
+    Agrega un contacto al diccionario.
+    No imprime nada y no pide input().
+    """
+    nombre = nombre.strip()
 
-def edit_contact(dic):
-    print("========= ✏️ EDICIÓN DE CONTACTOS ✏️ =========")
-    buscado = accent(detect_str(input("Ingrese el nombre del contacto que desea cambiar: ").strip(), "nombre"))
-    if buscado not in dic:
-        print("❌ Ese contacto NO existe.")
-        return menu(dic)
+    if not nombre: 
+        return False, "El nombre está vacío"
     
-    nombre, apellido = buscado.split(" ", 1)
-
-    def editar_nombre():
-        new_name = detect_str(input("Ingrese el nuevo nombre: ").strip(), "nombre")
-        new_contact = f"{new_name} {apellido}"
-        dic[new_contact] = dic.pop(buscado)
-        print(f"✅ Nombre actualizado → {new_contact}")
-        return menu(dic)
+    if not telefono.isdigit():
+        return False, "El teléfono desde ser numérico"
     
-    def editar_apellido():
-        new_last = detect_str(input("Ingrese el nuevo apellido: ").strip(), "apellido")
-        new_contact = f"{nombre} {new_last}"
-        dic[new_contact] = dic.pop(buscado)
-        print(f"✅ Apellido actualizado → {new_contact}")
-        return menu(dic)
+    dic[nombre] = int(telefono)
+    return True, f"Contacto agregado: {nombre} (+{telefono})"
 
-    def editar_telefono():
-        new_phone = detect_int(input("Ingrese el nuevo teléfono: ").strip(), "teléfono")
-        dic[buscado] = new_phone
-        print(f"📞 Número actualizado → +{new_phone}")
-        return menu(dic)
+def del_contact(dic, nombre):
+    """
+    Elimina un contacto por nombre exacto o parcialmente.
+    """
+    nombre = accent(nombre.lower())
 
-    def cancelar():
-        print("🛑 Edición cancelada.")
-        return menu(dic)
+    for key in list(dic.keys()):
+        if nombre in accent(key.lower()):
+            eliminado = dic.pop(key)
+            return True, f"Se eliminó el contacto: \n{key} (+{eliminado})"
+    
+    return False, "No se encontró ese contacto"
 
-    #Menu de edición con diccionario 
-    opciones = {
-        1 : editar_nombre,
-        2 : editar_apellido,
-        3 : editar_telefono,
-        4 : cancelar
-    }
+def edit_contact(dic, nombre_actual, nuevo_nombre=None, nuevo_telefono=None):
+    """
+    Edita un contacto existente.
+    Puede cambiar nombre, teléfono o ambos.
+    """
+    if nombre_actual not in dic:
+        return False, "Ese contacto no existe"
+    
+    telefono_original = dic[nombre_actual]
 
-    try:
-        opcion = int(input("""
-========= ✏️ EDICIÓN DE CONTACTOS ✏️ =========
-1. Nombre
-2. Apellido
-3. Número de teléfono
-4. Cancelar
-===============================================
-Seleccione una opción (1-4): """).strip())
-        if opcion in opciones:
-            return opciones[opcion]()
-        else:
-            print("⚠️ Opción inválida.")
-            return menu(dic)
-        
-    except ValueError:
-        print("⚠️ Ingrese un número válido.")
-        return menu(dic)
+    # Actualzar nombre
+    if nuevo_nombre:
+        nuevo_nombre = nuevo_nombre.strip()
+        dic[nuevo_nombre] = telefono_original
+        del dic[nombre_actual]
+        nombre_actual = nuevo_nombre
+    
+    # Actualizar telefono
+    if nuevo_telefono:
+        if not nuevo_telefono.isdigit():
+            return False, "El teléfono nuevo debe ser numérico"
+        dic[nombre_actual] = int(nuevo_telefono)
 
-def del_contact(dic):
-    print("========= 🗑️ ELIMINAR CONTACTO 🗑️ =========")
-    buscado = accent(detect_str(input("Ingrese el nombre a eliminar: ").strip(), "nombre")).lower()
+    return True, "Contacto actualizado correctamente"
 
-    contacto = None
-
-    for key in dic:
-        partes = accent(key.lower()).split()
-        if buscado in partes:
-            contacto = key
-            break
-
-    if contacto:
-        print(f"👤 {contacto} | 📞 +{dic[contacto]}")
-        opcion = input("¿Eliminar? (s/n): ").strip().lower()
-        if opcion == "s":
-            dic.pop(contacto)
-            print("🗑️ Contacto eliminado.")
-        else:
-            print("🛡️ Acción cancelada.")
-    else:
-        print(f"❌ No existe un contacto que coincida con: {buscado}")
-
-    return menu(dic)
-
-def show_contact(dic):
-    print("========= 📇 AGENDA DE CONTACTOS 📇 =========")
+def search_contact(dic,nombre):
+    """
+    Retorna lista de coincidencias para el buscador.
+    """
+    nombre = accent(nombre.lower())
+    resultados = []
 
     for key, value in dic.items():
-        print(f"👤 {key} → 📞 +{value}")
-
-    print(f"\n📊 Total de contactos: {len(dic)}")
-    return menu(dic)
-
-def search_contact(dic):
-    print("========= 🔎 BÚSQUEDA DE CONTACTOS 🔍 =========")
-    buscado = accent(detect_str(input("Ingrese nombre a buscar: ").strip(), "nombre")).lower()
-
-    encontrado = False 
-
-    for key in dic:
-        partes = accent(key.lower()).split()
-        if buscado in partes:
-            encontrado = True
-            print(f"👤 {key} | 📞 +{dic[key]}")
-
-    if not encontrado:
-        print("❌ No se encontró ningún contacto con ese nombre.")
-
-    return menu(dic)
-
-def salir():
-    print("👋 Saliendo del programa...")
-    exit()
-
-
-agenda = {
-    "Carlos Muñoz": 56987654321,
-    "María González": 56965432109,
-    "Pedro Ramírez": 56991234567,
-    "Fernanda Torres": 56999887766,
-    "Javier Soto": 5688776655,
-    "Camila Reyes": 56993456789,
-    "Ignacio Paredes": 56992345678,
-    "Sofía Díaz": 56994567890,
-    "Andrés Fuentes": 56996789012,
-    "Valentina Araya": 56993451200,
-    "Tomás Herrera": 56997894321,
-    "Constanza Vega": 56990012345,
-    "Felipe Navarro": 56992348765,
-    "Daniela López": 56991112222,
-    "Rodrigo Silva": 56995556666
-}
+        if nombre in accent(key.lower()):
+            resultados.append((key,value))
+    
+    return resultados
