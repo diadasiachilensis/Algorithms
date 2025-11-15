@@ -2,6 +2,13 @@
 59)Diccionario de Contactos: Crea un diccionario de contactos con nombres y números de 
 teléfono.
 """
+def accent(text):
+    reemplazos = {
+        "á": "a", "é": "e", "í": "i", "ó": "o", "ú": "u",
+        "Á": "A", "É": "E", "Í": "I", "Ó": "O", "Ú": "U"
+    }
+    return ''.join(reemplazos.get(c, c) for c in text) 
+
 def detect_str(valor,dato):
     while not valor.strip().isalpha():
         print(f"⚠️ El {dato} solo debe contener letras.")
@@ -14,130 +21,138 @@ def detect_int(valor,dato):
         valor=input(f"Ingrese nuevamente el {dato} de la persona: ").strip()
     return int(valor)
 
-
-def add_contact(dic):
-    while True: 
-        try:
-            # --- Nombre ---
-            nombre=input("Ingrese el nombre de la persona: ").strip()
-            nombre=detect_str(nombre,"nombre")
-
-            # --- Apellido ---
-            apellido= input(f"Ingrese el apellido de la persona: ").strip()
-            apellido=detect_str(nombre,"apellido")
-    
-            # --- Telefono ---
-            telefono=input("ingrese el numero de telefono de la persona sin agregar el +: ").strip()
-            telefono=detect_int(telefono,"telefono")
-
-            # --- Ingreso de datos ---
-            dic[f"{nombre} {apellido}"] = telefono
-            print(f"\n✅ Contacto agregado exitosamente:\n👤 {nombre} {apellido}\n📞 +{telefono}\n") # con salto de linea
-        except ValueError as e :
-            print(f"⚠️ Entrada inválida. Debe ingresar los datos de manera correcta.\n Error inesperado {e}")
-
+def add_contact(dic): 
+    try:
+        # --- Nombre ---
+        nombre = detect_str(input("Ingrese el nombre de la persona: ").strip(),"nombre")
+        # --- Apellido ---
+        apellido = detect_str(input(f"Ingrese el apellido de la persona: ").strip(),"apellido")
+        telefono = detect_str(input("Ingrese teléfono sin +: ").strip(), "teléfono")
+        
+        # --- Ingreso de datos ---
+        dic[f"{nombre} {apellido}"] = telefono
+        
+        print(f"\n✅ Contacto agregado exitosamente:\n👤 {nombre} {apellido}\n📞 +{telefono}\n") # con salto de linea
+    except ValueError as e :
+        print(f"⚠️ Entrada inválida. Debe ingresar los datos de manera correcta.\n Error inesperado {e}")
+    return menu(dic)
 
 def edit_contact(dic):
-    while True:
-        try:
-            print("========= ✏️ EDICIÓN DE CONTACTOS ✏️ =========")
-            buscado = input("Ingrese el nombre del contacto que desea cambiar: ")
-            buscado = detect_str(buscado, "nombre")
-            if buscado in dic:
-                opcion = input("""
+    print("========= ✏️ EDICIÓN DE CONTACTOS ✏️ =========")
+    buscado = accent(detect_str(input("Ingrese el nombre del contacto que desea cambiar: ").strip(), "nombre"))
+    if buscado not in dic:
+        print("❌ Ese contacto NO existe.")
+        return menu(dic)
+    
+    nombre, apellido = buscado.split(" ", 1)
+
+    def editar_nombre():
+        new_name = detect_str(input("Ingrese el nuevo nombre: ").strip(), "nombre")
+        new_contact = f"{new_name} {apellido}"
+        dic[new_contact] = dic.pop(buscado)
+        print(f"✅ Nombre actualizado → {new_contact}")
+        return menu(dic)
+    
+    def editar_apellido():
+        new_last = detect_str(input("Ingrese el nuevo apellido: ").strip(), "apellido")
+        new_contact = f"{nombre} {new_last}"
+        dic[new_contact] = dic.pop(buscado)
+        print(f"✅ Apellido actualizado → {new_contact}")
+        return menu(dic)
+
+    def editar_telefono():
+        new_phone = detect_int(input("Ingrese el nuevo teléfono: ").strip(), "teléfono")
+        dic[buscado] = new_phone
+        print(f"📞 Número actualizado → +{new_phone}")
+        return menu(dic)
+
+    def cancelar():
+        print("🛑 Edición cancelada.")
+        return menu(dic)
+
+    #Menu de edición con diccionario 
+    opciones = {
+        1 : editar_nombre,
+        2 : editar_apellido,
+        3 : editar_telefono,
+        4 : cancelar
+    }
+
+    try:
+        opcion = int(input("""
 ========= ✏️ EDICIÓN DE CONTACTOS ✏️ =========
 1. Nombre
 2. Apellido
 3. Número de teléfono
 4. Cancelar
 ===============================================
-Seleccione una opción (1-4): """).strip()
-                if opcion == 1:
-                    new_name = input("Ingrese el nuevo nombre: ").strip()
-                    #separar y conservar el numero
-                    if " " in buscado:                  # Si hay al menos un espacio en el texto
-                        partes   = buscado.split(" ",1)
-                        apellido = partes[1]              #toma el segundo dato, el apellido
-                    else: 
-                        apellido = ""                   # Si no hay espacio, deja apellido vacío
-                    new_contact  = f"{new_name} {apellido}".strip()
-                    # .pop() elimina la clave antigua y devuelve su valor; se reasigna el mismo número a la nueva clave
-                    dic[new_contact]=dic.pop(buscado)   # Mueve el número al nuevo nombre: borra la clave vieja y conserva el valor
-                    return menu()
-                elif opcion == 2: 
-                    new_subname=input("Ingrese el nuevo apellido: ").strip()
-                    if " " in buscado:
-                        partes   = buscado.split(" ",1)
-                        nombre = partes[0]
-                    else: 
-                        nombre  = ""
-                    new_contact = f"{nombre} {new_subname}".strip()
-                    dic[new_contact] = dic.pop(buscado)
-                    return menu()
-                elif opcion == 3:
-                    try: 
-                        new_phone = input("Ingrese el nuevo numero de telefono: ").strip()
-                        new_phone = detect_int(new_phone, "telefono")
-                        dic[buscado]=new_contact 
-                    except ValueError as e:
-                        print(f"⚠️ Entrada inválida. Debe ingresar los datos de manera correcta.\n Error inesperado {e}")
-                    return menu()
-                elif opcion == 4:
-                    return menu()
-        except ValueError:
-            print("⚠️ Entrada inválida. Debe ingresar el nombre de manera correcta.")
+Seleccione una opción (1-4): """).strip())
+        if opcion in opciones:
+            return opciones[opcion]()
+        else:
+            print("⚠️ Opción inválida.")
+            return menu(dic)
+        
+    except ValueError:
+        print("⚠️ Ingrese un número válido.")
+        return menu(dic)
 
 def del_contact(dic):
-    while True:
-        try: 
-            print("========= 🗑️ EDICIÓN DE CONTACTOS 🗑️ =========")
-            buscado=input("Ingrese el nombre del contacto que desea eliminar: ").strip()
-            buscado=detect_str(buscado,"nombre")
-            if buscado in dic:
-                print(f"✅ El contacto que desea eliminar existe \n -> El contacto es: \n 👤{buscado} \n Número de telefono 📞 +{dic[buscado]}")
-                desicion=input("Desea ejecutar la acción para que el contacto sea eliminad (s/n): ").strip().lower()
-                encontrado = True #🚩
-                    #Buscar coincidencias parciales
-                for i in list(dic.keys()):
-                    partes=i.lower().split()
-                    if buscado in partes: 
-                        encontrado = False #🚩
-                        print(f"✅ El contacto que desea eliminar existe \n -> El contacto es: \n 👤{i} \n Número de telefono 📞 +{dic[i]}")
-                        while True:
-                            if desicion == "s":
-                                eliminado=dic.pop(buscado)
-                                print(f"🗑️ Se eliminó el contacto {buscado}: {eliminado}")
-                                return False
-                            elif desicion == "n": 
-                                print("🛡️ El contacto no sera eliminado.")
-                                return False
-                            else: 
-                                print("⚠️ Entrada inválida. Ingresa 's' para sí eliminar o 'n' para no eliminar el contacto.")                             
-        except ValueError as e: 
-            print(f"⚠️ Entrada inválida. Debe ingresar los datos de manera correcta.\n Error inesperado {e}")
-    return menu()
+    print("========= 🗑️ ELIMINAR CONTACTO 🗑️ =========")
+    buscado = accent(detect_str(input("Ingrese el nombre a eliminar: ").strip(), "nombre")).lower()
+
+    contacto = None
+
+    for key in dic:
+        partes = accent(key.lower()).split()
+        if buscado in partes:
+            contacto = key
+            break
+
+    if contacto:
+        print(f"👤 {contacto} | 📞 +{dic[contacto]}")
+        opcion = input("¿Eliminar? (s/n): ").strip().lower()
+        if opcion == "s":
+            dic.pop(contacto)
+            print("🗑️ Contacto eliminado.")
+        else:
+            print("🛡️ Acción cancelada.")
+    else:
+        print(f"❌ No existe un contacto que coincida con: {buscado}")
+
+    return menu(dic)
 
 def show_contact(dic):
-    while True:
-        try:
-            print("========= 📇 AGENDA DE CONTACTOS 📇 =========")
-            for key,value in dic.items():
-                print(f"👤 {key} : 📞 +{value}")
-            cantidad = len(dic)
-            print(f"📊 Total de contactos: {cantidad}")
-        except Exception as e:
-            print(f"⚠️ Error inesperado: {e}")
-        return menu()
+    print("========= 📇 AGENDA DE CONTACTOS 📇 =========")
+
+    for key, value in dic.items():
+        print(f"👤 {key} → 📞 +{value}")
+
+    print(f"\n📊 Total de contactos: {len(dic)}")
+    return menu(dic)
 
 def search_contact(dic):
+    print("========= 🔎 BÚSQUEDA DE CONTACTOS 🔍 =========")
+    buscado = accent(detect_str(input("Ingrese nombre a buscar: ").strip(), "nombre")).lower()
 
-    return menu()
-    pass
+    encontrado = False 
+
+    for key in dic:
+        partes = accent(key.lower()).split()
+        if buscado in partes:
+            encontrado = True
+            print(f"👤 {key} | 📞 +{dic[key]}")
+
+    if not encontrado:
+        print("❌ No se encontró ningún contacto con ese nombre.")
+
+    return menu(dic)
 
 def salir():
+    print("👋 Saliendo del programa...")
     exit()
     
-def menu(command, dic):
+def menu(dic):
     while True:
         try: 
             opcion = int(input("""
@@ -151,7 +166,7 @@ def menu(command, dic):
 ====================================
 Seleccione una opción (1-6): """))
         
-            commands = {
+            opciones = {
                 1: add_contact,
                 2: edit_contact,
                 3: del_contact, 
@@ -160,17 +175,30 @@ Seleccione una opción (1-6): """))
                 6: salir
             }
             
-            if opcion == 6: 
-                print("👋 Saliendo del menú...")
-                break
-            
-            funcion = commands.get(opcion)
-            
-            if funcion is None:
+            if opcion in opciones:
+                return opciones[opcion](dic)
+            else:
                 print("⚠️ Opción inválida. Intente nuevamente.")
-                continue
 
-            funcion(dic)
-        
         except ValueError:
             print("⚠️ Entrada inválida. Debe ingresar un número.")
+
+if __name__ == "__main__":
+    agenda = {
+    "Carlos Muñoz": "56 9 8765 4321",
+    "María González": "56 9 6543 2109",
+    "Pedro Ramírez": "56 9 9123 4567",
+    "Fernanda Torres": "56 9 9988 7766",
+    "Javier Soto": "56 9 8877 6655",
+    "Camila Reyes": "56 9 9345 6789",
+    "Ignacio Paredes": "56 9 9234 5678",
+    "Sofía Díaz": "56 9 9456 7890",
+    "Andrés Fuentes": "56 9 9678 9012",
+    "Valentina Araya": "56 9 9345 1200",
+    "Tomás Herrera": "56 9 9789 4321",
+    "Constanza Vega": "56 9 9001 2345",
+    "Felipe Navarro": "56 9 9234 8765",
+    "Daniela López": "56 9 9111 2222",
+    "Rodrigo Silva": "56 9 9555 6666"
+    }
+    menu(agenda)
