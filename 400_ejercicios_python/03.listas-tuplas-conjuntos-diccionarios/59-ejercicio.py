@@ -7,7 +7,17 @@ def accent(text):
         "á": "a", "é": "e", "í": "i", "ó": "o", "ú": "u",
         "Á": "A", "É": "E", "Í": "I", "Ó": "O", "Ú": "U"
     }
-    return ''.join(reemplazos.get(c, c) for c in text) 
+    resultado = ""
+
+    for caracter in text: 
+        # Si el caracter tiene una versión sin tilde, úsala.
+        # Si no existe reemplazo, conserva el caracter original.
+        caracter_sin_tilde = reemplazos.get(caracter, caracter)
+
+        # Agregar el caracter procesado al resultado final
+        resultado += caracter_sin_tilde
+    
+    return resultado
 
 def detect_str(valor,dato):
     while not valor.strip().isalpha():
