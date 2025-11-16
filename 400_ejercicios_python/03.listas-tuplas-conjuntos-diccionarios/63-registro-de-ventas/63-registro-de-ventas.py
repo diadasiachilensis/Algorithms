@@ -60,15 +60,6 @@ def date_data(dic, nivel=1):
         else: 
             print(f"{sangria}{ramalast} 📅 {clave}")
 
-
-def get_sale_details(venta):
-    # Mostrar cada venta con formato claro
-    for i, venta in enumerate(ventas, start=1):             # start=1 hace que la numeración comience en 1 en vez de 0,
-
-        producto = venta.get("producto", "Desconocido") #Si NO existe, devuelve "Desconocido" (el valor por defecto).
-        cantidad = venta.get("cantidad", 0)             #Si "cantidad" no existe dentro de venta, Python devuelve 0.
-        precio = venta.get("precio_unitario", 0)  
-
 def show_sales(dic, fecha):
     print(f"\n====== 🛒 CONSULTA DE VENTAS POR FECHA {fecha} ======\n")
 
@@ -90,35 +81,85 @@ def show_sales(dic, fecha):
         print(f"   ├── Cantidad: {cantidad}")
         print(f"   └── Precio unitario: $ {precio}\n")
 
-
 def show_sales_by_date(dic):
     """
     Mostrar todas las ventas de una fecha específica
         └──Filtra por fecha y muestra los productos vendidos..
     """
     print("\n====== 📅 CONSULTA DE VENTAS POR FECHA ======\n")
+    
     date_data(dic)
+    
     opcion = input("\nIngrese la fecha EXACTA que desea consultar: ").strip()
+    
     if opcion not in dic:
         print("⚠️ Fecha no encontrada. Por favor, escriba una fecha válida.")
         return
     else: 
         show_sales(dic,opcion)
 
-
-
-"""def calculate_daily_sales_total(dic):
-
+def calculate_daily_sales_total(dic):
+    """
     Calcular el total de ventas de un día
         └──Suma `cantidad * precio_unitario` de todas las ventas de esa fecha.
-
+    """
     print("\n====== 💰 TOTAL DE VENTAS POR FECHA ======\n")
+    
+    # Mostrar fechas disponibles
     date_data(dic)
+    
+    # Pedir fecha al usuario 
     opcion = input("\nIngrese la fecha EXACTA que desea consultar: ").strip()
+    
     if opcion not in dic:
         print("⚠️ Fecha no encontrada. Por favor, escriba una fecha válida.")
-        return"""
+        return
     
+    #Lista del valor calve de diccionarios "ventas" 
+    ventas = dic[opcion]
+
+    total=0
+    for venta in ventas:
+        cantidad = venta.get("cantidad", 0)
+        precio = venta.get("precio_unitario", 0)
+        total+= cantidad*precio
+
+    print(f"\n💵 Total de ventas del día {opcion}: $ {total}\n")
+    return total
+
+
+def create_sale_entry(dic):
+    """
+    Agregar una nueva venta
+        └──Inserta un nuevo diccionario dentro de la lista del día.
+    """
+    print("\n====== 🛒 AGREGAR NUEVA VENTA ======\n")
+
+    new_sale={"producto" : "Desconocido", "cantidad" : 0, "precio_unitario" : 0}
+
+    try:
+        new_product = str(input("Ingrese el nuevo producto: ").lower().strip())
+        if new_product in ventas["producto"]:
+            print("⚠️ El producto ya existe.")
+            cantidad = int(input("Ingrese la cantidad vendida: "))
+            ventas["cantidad"] += cantidad
+            return ventas["cantidad"]
+        else:
+            cantidad = int(input("Ingrese la cantidad vendida: ")).strip()
+            precio   = int(input("Ingreso el precio por valor unitario: ")).strip()
+            return cantidad, precio
+        
+    
+    except Exception as e:
+        print("❌ Error inesperado:", e)
+
+
+
+
+    
+
+
+    return new_sale     
 
 
 

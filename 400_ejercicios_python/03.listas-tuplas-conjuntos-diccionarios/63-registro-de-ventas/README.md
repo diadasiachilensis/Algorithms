@@ -25,11 +25,18 @@ def show_sales_by_date(dic)
 
 Suma `cantidad * precio_unitario` de todas las ventas de esa fecha.
 
-
+```python
+def calculate_daily_sales_total(dic):
+``` 
 
 ### 4. **Agregar una nueva venta**
 
 Inserta un nuevo diccionario dentro de la lista del día.
+
+```python
+def create_sale_entry(dic):
+``` 
+
 
 ### 5. **Agregar una nueva fecha de ventas**
 
