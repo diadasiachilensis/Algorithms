@@ -7,15 +7,25 @@ A continuación te dejo una lista **amplia, profesional y organizada**, ideal pa
 
 ### 1. **Mostrar todas las fechas registradas**
 
-Lista las claves del diccionario.
+Lista las claves del diccionario. 
+
+```python
+def date_data(dic, nivel=1)
+```
 
 ### 2. **Mostrar todas las ventas de una fecha específica**
 
 Filtra por fecha y muestra los productos vendidos.
 
+```python
+def show_sales_by_date(dic)
+```
+
 ### 3. **Calcular el total de ventas de un día**
 
 Suma `cantidad * precio_unitario` de todas las ventas de esa fecha.
+
+
 
 ### 4. **Agregar una nueva venta**
 

@@ -5,9 +5,6 @@ totales como valores. Utiliza una lista para almacenar los detalles de cada vent
 el producto vendido, la cantidad y el precio unitario. 
 """
 
-from optparse import Option
-
-
 ventas = {
     "2025-01-02": [
         {"producto": "Polera Hombre", "cantidad": 3, "precio_unitario": 12990},
@@ -49,6 +46,7 @@ ventas = {
 def date_data(dic, nivel=1):
     """
     Mostrar todas las fechas registradas
+        └──Lista las claves del diccionario.
     """
     
     sangria   = "  " * nivel
@@ -62,21 +60,65 @@ def date_data(dic, nivel=1):
         else: 
             print(f"{sangria}{ramalast} 📅 {clave}")
 
-def show_sales(dic):
-    pass
+
+def get_sale_details(venta):
+    # Mostrar cada venta con formato claro
+    for i, venta in enumerate(ventas, start=1):             # start=1 hace que la numeración comience en 1 en vez de 0,
+
+        producto = venta.get("producto", "Desconocido") #Si NO existe, devuelve "Desconocido" (el valor por defecto).
+        cantidad = venta.get("cantidad", 0)             #Si "cantidad" no existe dentro de venta, Python devuelve 0.
+        precio = venta.get("precio_unitario", 0)  
+
+def show_sales(dic, fecha):
+    print(f"\n====== 🛒 CONSULTA DE VENTAS POR FECHA {fecha} ======\n")
+
+    ventas = dic.get(fecha, [])# Obtiene las ventas de la fecha; si no existe, devuelve una lista vacía.
+
+    if not ventas:
+        print("⚠️ No hay ventas registradas en esa fecha")
+        return
+
+    # Mostrar cada venta con formato claro
+    for i, venta in enumerate(ventas, start=1):             # start=1 hace que la numeración comience en 1 en vez de 0,
+
+        producto = venta.get("producto", "Desconocido") #Si NO existe, devuelve "Desconocido" (el valor por defecto).
+        cantidad = venta.get("cantidad", 0)             #Si "cantidad" no existe dentro de venta, Python devuelve 0.
+        precio = venta.get("precio_unitario", 0)
+
+        print(f"🛒 Venta {i}")
+        print(f"   ├── Producto: {producto}")
+        print(f"   ├── Cantidad: {cantidad}")
+        print(f"   └── Precio unitario: $ {precio}\n")
+
 
 def show_sales_by_date(dic):
     """
     Mostrar todas las ventas de una fecha específica
+        └──Filtra por fecha y muestra los productos vendidos..
     """
-
-    print("Ventas en fechas")
+    print("\n====== 📅 CONSULTA DE VENTAS POR FECHA ======\n")
     date_data(dic)
-    Option == input("Escriba de manera correcta la fecha que desea conocer sus ventas: ")
-    if not Option in dic:
-        print("Escriba la fecha de manera correcta")
+    opcion = input("\nIngrese la fecha EXACTA que desea consultar: ").strip()
+    if opcion not in dic:
+        print("⚠️ Fecha no encontrada. Por favor, escriba una fecha válida.")
+        return
     else: 
-        show_sales(dic)
-        print(f"{dic[Option].items()}")
+        show_sales(dic,opcion)
+
+
+
+"""def calculate_daily_sales_total(dic):
+
+    Calcular el total de ventas de un día
+        └──Suma `cantidad * precio_unitario` de todas las ventas de esa fecha.
+
+    print("\n====== 💰 TOTAL DE VENTAS POR FECHA ======\n")
+    date_data(dic)
+    opcion = input("\nIngrese la fecha EXACTA que desea consultar: ").strip()
+    if opcion not in dic:
+        print("⚠️ Fecha no encontrada. Por favor, escriba una fecha válida.")
+        return"""
+    
+
 
 
