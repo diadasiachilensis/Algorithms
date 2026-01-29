@@ -93,3 +93,16 @@ celerybeat.pid
 env/
 venv/
 ENV/
+
+# Pytest cache
+.pytest_cache/
+*/.pytest_cache/
+vsc/
+
+# Python bytecode (archivos compilados)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos de sistema
+.DS_Store
